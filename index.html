@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koperasi Usahawan Bukit Bintang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2B22;
+    --gold:#C9A227;
+    --cream:#F2E8D5;
+    --maroon:#6E2A2A;
+    --sage:#93A68C;
+    --paper:#FBF7EE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-0.01em;}
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+
+  .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--maroon);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.4rem 5%;
+    background:rgba(251,247,238,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(28,43,34,0.08);
+  }
+  .brand{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600;}
+  .brand span{color:var(--maroon);}
+  nav ul{display:flex; gap:2.2rem; list-style:none;}
+  nav ul li a{font-size:0.85rem; font-weight:500; transition:color .25s;}
+  nav ul li a:hover{color:var(--maroon);}
+  .nav-cta{
+    background:var(--ink); color:var(--paper);
+    padding:0.55rem 1.3rem; border-radius:2px; font-size:0.82rem; font-weight:500;
+    transition:background .25s;
+  }
+  .nav-cta:hover{background:var(--maroon);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    position:relative;
+    padding:0 5%;
+    background:
+      radial-gradient(ellipse at 80% -10%, rgba(201,162,39,0.18), transparent 60%),
+      var(--ink);
+    color:var(--paper);
+    overflow:hidden;
+  }
+  .hero-pattern{
+    position:absolute; inset:0; width:100%; height:100%;
+    opacity:0.9;
+    pointer-events:none;
+  }
+  .hero-pattern path{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:1.1;
+    stroke-dasharray:8 6;
+    opacity:0.35;
+    stroke-dashoffset:2000;
+    animation:draw 3.2s ease-out forwards;
+  }
+  .hero-pattern path:nth-child(2){animation-delay:.15s; stroke:var(--sage); opacity:.22;}
+  .hero-pattern path:nth-child(3){animation-delay:.3s;}
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+
+  .hero-inner{ position:relative; z-index:2; max-width:780px; }
+  .hero .label{ color:var(--gold); margin-bottom:1.4rem; opacity:0; animation:rise .8s ease forwards; animation-delay:.2s;}
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:1.05;
+    opacity:0; animation:rise .9s ease forwards; animation-delay:.4s;
+  }
+  .hero h1 em{font-style:italic; color:var(--gold); font-weight:400;}
+  .hero p.sub{
+    margin-top:1.6rem; max-width:520px; font-size:1.05rem; color:rgba(251,247,238,0.78); line-height:1.6;
+    opacity:0; animation:rise .9s ease forwards; animation-delay:.6s;
+  }
+  .hero-actions{ margin-top:2.4rem; display:flex; gap:1rem; opacity:0; animation:rise .9s ease forwards; animation-delay:.8s; }
+  @keyframes rise{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+
+  .btn-primary{
+    background:var(--gold); color:var(--ink); padding:0.85rem 1.7rem; border-radius:2px;
+    font-size:0.9rem; font-weight:600; transition:transform .25s, box-shadow .25s;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(201,162,39,0.3); }
+  .btn-ghost{
+    border:1px solid rgba(251,247,238,0.35); color:var(--paper); padding:0.85rem 1.7rem; border-radius:2px;
+    font-size:0.9rem; font-weight:500; transition:border-color .25s, background .25s;
+  }
+  .btn-ghost:hover{ border-color:var(--gold); background:rgba(201,162,39,0.08); }
+
+  .scroll-hint{
+    position:absolute; bottom:2.4rem; left:5%; display:flex; align-items:center; gap:.6rem;
+    color:rgba(251,247,238,0.5); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:.1em;
+  }
+  .scroll-hint .line{ width:1px; height:28px; background:var(--gold); animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{transform:scaleY(1); opacity:.6;} 50%{transform:scaleY(0.5); opacity:1;} }
+
+  /* ---------- DIVIDER ---------- */
+  .divider{ display:flex; justify-content:center; padding:0; }
+  .divider svg{ width:180px; height:24px; }
+  .divider path{ stroke:var(--gold); stroke-width:1.4; fill:none; }
+
+  /* ---------- SECTION shared ---------- */
+  section{ padding:6.5rem 5%; }
+  .section-inner{ max-width:1080px; margin:0 auto; }
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background:var(--paper); }
+  .about-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:4rem; align-items:start; }
+  .about h2{ font-size:clamp(1.8rem,3.4vw,2.6rem); margin-top:.8rem; line-height:1.18; }
+  .about-body p{ margin-top:1.4rem; font-size:1rem; line-height:1.75; color:#3c463e; max-width:480px; }
+  .about-fact{ border-top:1px solid rgba(28,43,34,0.15); padding-top:1.2rem; margin-top:1.6rem; }
+  .about-fact:first-child{ margin-top:0; }
+  .about-fact h3{ font-size:1.3rem; color:var(--maroon); }
+  .about-fact p{ font-size:0.9rem; color:#5a6359; margin-top:.3rem; }
+
+  /* ---------- STATS ---------- */
+  .stats{ background:var(--ink); color:var(--paper); }
+  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; text-align:center; }
+  .stat-num{ font-family:'Fraunces',serif; font-size:clamp(2.4rem,5vw,3.4rem); color:var(--gold); font-weight:500; }
+  .stat-label{ font-size:0.85rem; color:rgba(251,247,238,0.65); margin-top:.5rem; }
+
+  /* ---------- SERVICES ---------- */
+  .services{ background:var(--paper); }
+  .services h2{ font-size:clamp(1.8rem,3.4vw,2.6rem); max-width:560px; }
+  .services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; margin-top:3rem; }
+  .service-card{
+    background:var(--cream); border:1px solid rgba(28,43,34,0.1); border-radius:3px;
+    padding:2.2rem 1.8rem; transition:transform .35s, box-shadow .35s;
+  }
+  .service-card:hover{ transform:translateY(-6px); box-shadow:0 18px 36px rgba(28,43,34,0.12); }
+  .service-card .icon{ width:38px; height:38px; margin-bottom:1.4rem; }
+  .service-card h3{ font-size:1.15rem; }
+  .service-card p{ margin-top:.7rem; font-size:0.92rem; line-height:1.6; color:#4b554a; }
+
+  /* ---------- STEPS ---------- */
+  .steps{ background:var(--maroon); color:var(--paper); }
+  .steps h2{ font-size:clamp(1.8rem,3.4vw,2.6rem); max-width:560px; }
+  .steps-list{ margin-top:3rem; display:flex; flex-direction:column; }
+  .step{ display:grid; grid-template-columns:90px 1fr; gap:2rem; padding:1.8rem 0; border-top:1px solid rgba(251,247,238,0.18); align-items:baseline; }
+  .step:last-child{ border-bottom:1px solid rgba(251,247,238,0.18); }
+  .step-num{ font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:0.95rem; }
+  .step h3{ font-size:1.2rem; font-weight:500; }
+  .step p{ margin-top:.4rem; font-size:0.92rem; color:rgba(251,247,238,0.7); max-width:520px; }
+
+  /* ---------- MEMBERS ---------- */
+  .members{ background:var(--paper); }
+  .members h2{ font-size:clamp(1.8rem,3.4vw,2.6rem); max-width:560px; }
+  .members-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; margin-top:3rem; }
+  .member-card{ padding:2rem 1.8rem; border-left:2px solid var(--gold); }
+  .member-card p.quote{ font-family:'Fraunces',serif; font-style:italic; font-size:1.08rem; line-height:1.55; color:var(--ink); }
+  .member-card .who{ margin-top:1.2rem; font-size:0.85rem; color:var(--maroon); font-weight:600; }
+  .member-card .biz{ font-size:0.8rem; color:#6a7368; }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ background:var(--ink); color:var(--paper); }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; }
+  .contact h2{ font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .contact-info{ margin-top:2rem; display:flex; flex-direction:column; gap:1.4rem; }
+  .contact-info .row{ display:flex; gap:1rem; font-size:0.95rem; color:rgba(251,247,238,0.85); }
+  .contact-info .row .label{ min-width:90px; color:var(--gold); }
+  form{ display:flex; flex-direction:column; gap:1.1rem; }
+  form input, form textarea{
+    background:transparent; border:none; border-bottom:1px solid rgba(251,247,238,0.3);
+    color:var(--paper); padding:0.7rem 0; font-size:0.95rem; font-family:'Inter',sans-serif;
+    transition:border-color .25s;
+  }
+  form input::placeholder, form textarea::placeholder{ color:rgba(251,247,238,0.4); }
+  form input:focus, form textarea:focus{ border-color:var(--gold); }
+  form textarea{ resize:none; height:90px; }
+  form button{
+    margin-top:.6rem; align-self:flex-start;
+    background:var(--gold); color:var(--ink); padding:0.85rem 1.8rem; border:none; border-radius:2px;
+    font-size:0.9rem; font-weight:600; cursor:pointer; transition:transform .25s;
+  }
+  form button:hover{ transform:translateY(-2px); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink); color:rgba(251,247,238,0.55);
+    padding:2rem 5%; display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid rgba(251,247,238,0.1); font-size:0.8rem;
+  }
+
+  @media (max-width:900px){
+    nav ul{ display:none; }
+    .about-grid, .contact-grid{ grid-template-columns:1fr; gap:2.4rem; }
+    .stats-grid{ grid-template-columns:repeat(2,1fr); gap:2.2rem; }
+    .services-grid, .members-grid{ grid-template-columns:1fr; }
+    .step{ grid-template-columns:1fr; gap:.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Koperasi <span>Usahawan</span> Bukit Bintang</div>
+  <ul>
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#perkhidmatan">Perkhidmatan</a></li>
+    <li><a href="#langkah">Jadi Ahli</a></li>
+    <li><a href="#hubungi">Hubungi</a></li>
+  </ul>
+  <a class="nav-cta" href="#hubungi">Daftar Sekarang</a>
+</nav>
+
+<section class="hero">
+  <svg class="hero-pattern" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M1100 -50 C 950 100, 1050 250, 900 350 S 700 250, 750 450 S 950 600, 850 850" />
+    <path d="M1180 0 C 1000 150, 1150 300, 980 420 S 760 320, 820 550 S 1020 700, 900 850" />
+    <path d="M1000 -80 C 880 60, 980 220, 850 300 S 680 200, 700 400 S 880 560, 780 850" />
+  </svg>
+  <div class="hero-inner">
+    <div class="label">Koperasi &middot; Bukit Bintang &middot; Kuala Lumpur</div>
+    <h1>Bina bersama.<br><em>Untung bersama.</em></h1>
+    <p class="sub">Koperasi Usahawan Bukit Bintang menyatukan peniaga dan usahawan kecil di jantung Bukit Bintang melalui pembiayaan koperasi, rangkaian perniagaan, dan sokongan bersama &mdash; cara lama untuk berniaga di bandar yang sentiasa berubah.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#langkah">Jadi Ahli</a>
+      <a class="btn-ghost" href="#tentang">Ketahui Lebih Lanjut</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="line"></div>SKROL</div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 180 24"><path d="M0 12 C 40 2, 60 22, 90 12 S 140 2, 180 12" /></svg></div>
+
+<section class="about" id="tentang">
+  <div class="section-inner about-grid">
+    <div>
+      <div class="label">Tentang Koperasi</div>
+      <h2 class="reveal">Diasaskan oleh peniaga, untuk peniaga Bukit Bintang.</h2>
+    </div>
+    <div class="about-body reveal">
+      <p>Bukit Bintang hidup melalui peniaga jalanan, pemilik gedung kecil, dan usahawan generasi kedua yang membesar bersama kawasan ini. Koperasi Usahawan Bukit Bintang ditubuhkan untuk memastikan kejayaan itu dikongsi &mdash; bukan dimonopoli.</p>
+      <div class="about-fact">
+        <h3>Gotong-royong sebagai model perniagaan</h3>
+        <p>Setiap ahli menyumbang modal kecil; koperasi menyalurkannya semula sebagai pembiayaan mikro kepada ahli lain.</p>
+      </div>
+      <div class="about-fact">
+        <h3>Berakar di satu lokasi</h3>
+        <p>Pejabat dan pusat ahli kami terletak betul-betul di Jalan Bukit Bintang, mudah diakses oleh semua peniaga sekitar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="section-inner stats-grid">
+    <div class="reveal"><div class="stat-num">412</div><div class="stat-label">Ahli berdaftar</div></div>
+    <div class="reveal"><div class="stat-num">RM2.8j</div><div class="stat-label">Pembiayaan disalurkan</div></div>
+    <div class="reveal"><div class="stat-num">9</div><div class="stat-label">Tahun beroperasi</div></div>
+    <div class="reveal"><div class="stat-num">96%</div><div class="stat-label">Kadar bayaran balik</div></div>
+  </div>
+</section>
+
+<section class="services" id="perkhidmatan">
+  <div class="section-inner">
+    <div class="label">Perkhidmatan</div>
+    <h2 class="reveal">Sokongan yang direka untuk perniagaan kecil di bandar.</h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#6E2A2A" stroke-width="1.4"><path d="M3 10l9-6 9 6M5 10v9h14v-9M9 19v-6h6v6"/></svg>
+        <h3>Pembiayaan Mikro</h3>
+        <p>Pinjaman modal kerja tanpa cagaran untuk ahli berdaftar, diluluskan oleh jawatankuasa sesama peniaga.</p>
+      </div>
+      <div class="service-card reveal">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#6E2A2A" stroke-width="1.4"><circle cx="12" cy="8" r="3"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>
+        <h3>Rangkaian Peniaga</h3>
+        <p>Sesi bulanan menghubungkan ahli baharu dengan peniaga berpengalaman di kawasan Bukit Bintang.</p>
+      </div>
+      <div class="service-card reveal">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#6E2A2A" stroke-width="1.4"><path d="M4 19h16M4 19V9l8-5 8 5v10M9 19v-6h6v6"/></svg>
+        <h3>Sewa &amp; Lokasi</h3>
+        <p>Bantuan rundingan sewa premis dan maklumat lokasi kosong khusus untuk ahli koperasi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="langkah">
+  <div class="section-inner">
+    <div class="label" style="color:var(--gold)">Jadi Ahli</div>
+    <h2 class="reveal">Empat langkah untuk menyertai koperasi.</h2>
+    <div class="steps-list">
+      <div class="step reveal"><div class="step-num">01</div><div><h3>Mohon</h3><p>Isi borang keahlian di pejabat koperasi atau secara dalam talian dengan salinan lesen perniagaan.</p></div></div>
+      <div class="step reveal"><div class="step-num">02</div><div><h3>Daftar</h3><p>Bayar yuran keahlian sekali dan caruman saham minimum mengikut jenis perniagaan.</p></div></div>
+      <div class="step reveal"><div class="step-num">03</div><div><h3>Hadiri Orientasi</h3><p>Sesi pengenalan dua jam tentang hak ahli, pembiayaan, dan tadbir urus koperasi.</p></div></div>
+      <div class="step reveal"><div class="step-num">04</div><div><h3>Mula Berniaga</h3><p>Akses penuh kepada pembiayaan, rangkaian, dan sokongan koperasi mulai hari itu.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="members">
+  <div class="section-inner">
+    <div class="label">Suara Ahli</div>
+    <h2 class="reveal">Cerita dari peniaga Bukit Bintang.</h2>
+    <div class="members-grid">
+      <div class="member-card reveal">
+        <p class="quote">"Pembiayaan koperasi membantu saya buka cawangan kedua tanpa bergantung pada bank."</p>
+        <div class="who">Halim Rosli</div>
+        <div class="biz">Pemilik, Kedai Kopi Warisan</div>
+      </div>
+      <div class="member-card reveal">
+        <p class="quote">"Rangkaian ahli memperkenalkan saya kepada pembekal yang menjimatkan kos sehingga 20%."</p>
+        <div class="who">Siti Nuraini</div>
+        <div class="biz">Pemilik, Butik Senja</div>
+      </div>
+      <div class="member-card reveal">
+        <p class="quote">"Sebagai ahli baharu, orientasi koperasi jelas menerangkan hak dan tanggungjawab saya."</p>
+        <div class="who">Wong Kah Meng</div>
+        <div class="biz">Pemilik, Restoran Meng Kee</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="hubungi">
+  <div class="section-inner contact-grid">
+    <div>
+      <div class="label" style="color:var(--gold)">Hubungi Kami</div>
+      <h2 class="reveal">Lawat pejabat kami di Bukit Bintang.</h2>
+      <div class="contact-info reveal">
+        <div class="row"><span class="label">Alamat</span><span>Tingkat 3, Jalan Bukit Bintang, 55100 Kuala Lumpur</span></div>
+        <div class="row"><span class="label">Telefon</span><span>+603-2145 8800</span></div>
+        <div class="row"><span class="label">E-mel</span><span>ahli@koperasiusahawanbb.my</span></div>
+        <div class="row"><span class="label">Waktu</span><span>Isnin &ndash; Jumaat, 9pg &ndash; 6ptg</span></div>
+      </div>
+    </div>
+    <form class="reveal" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Permohonan dihantar';">
+      <input type="text" placeholder="Nama penuh" required>
+      <input type="text" placeholder="Nama perniagaan" required>
+      <input type="email" placeholder="E-mel" required>
+      <textarea placeholder="Ceritakan tentang perniagaan anda"></textarea>
+      <button type="submit">Hantar Permohonan</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Koperasi Usahawan Bukit Bintang</span>
+  <span>Berdaftar di bawah Suruhanjaya Koperasi Malaysia</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
