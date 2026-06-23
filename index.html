@@ -14,6 +14,7 @@
     --charcoal-2:#1E1A13;
     --gold:#C99A3E;
     --gold-bright:#E7C873;
+    --gold-deep:#7A5A1E;
     --bone:#F3EEE3;
     --ink:#1C1812;
     --muted:#9A9282;
@@ -58,6 +59,35 @@
     color:var(--muted); transition:color .25s; padding-bottom:.3rem; border-bottom:1px solid transparent;
   }
   nav ul li a:hover, nav ul li a.active{ color:var(--gold-bright); border-color:var(--gold); }
+
+  .nav-toggle{
+    display:none; width:44px; height:44px; background:none; border:none; cursor:pointer;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+  .nav-toggle span{ width:22px; height:2px; background:var(--bone); transition:transform .25s, opacity .25s; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu{
+    display:none; flex-direction:column; list-style:none;
+    position:fixed; top:0; right:0; height:100vh; width:min(78vw, 320px); z-index:99;
+    background:var(--charcoal); border-left:1px solid rgba(201,154,62,0.18);
+    padding:5.5rem 1.6rem 2rem; gap:.25rem;
+    transform:translateX(100%); transition:transform .35s ease;
+  }
+  .mobile-menu.open{ transform:translateX(0); }
+  .mobile-menu li a{
+    display:flex; align-items:center; min-height:44px;
+    font-family:'IBM Plex Mono',monospace; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--bone); border-bottom:1px solid rgba(243,238,227,0.1);
+  }
+  .mobile-menu li a:hover, .mobile-menu li a.active{ color:var(--gold-bright); }
+  .menu-backdrop{
+    display:none; position:fixed; inset:0; z-index:98; background:rgba(10,8,7,0.6);
+    opacity:0; transition:opacity .35s ease;
+  }
+  .menu-backdrop.open{ opacity:1; }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -172,7 +202,7 @@
     font-family:'Italiana',serif; font-size:2rem; color:var(--gold);
     background:linear-gradient(135deg, #ECE4D1, var(--bone));
   }
-  .board-info .role{ font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:.12em; color:var(--gold); text-transform:uppercase; }
+  .board-info .role{ font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:.12em; color:var(--gold-deep); text-transform:uppercase; }
   .board-info h3{ font-size:1.5rem; margin-top:.4rem; }
   .board-info p.desc{ margin-top:.8rem; font-size:0.92rem; line-height:1.7; color:#52493a; max-width:680px; }
   .board-info .expertise{ margin-top:1rem; display:flex; flex-wrap:wrap; gap:.5rem; }
@@ -189,6 +219,11 @@
   .contact-info .row .v{ font-size:1rem; color:var(--bone); line-height:1.5; }
   .contact-info .row a.v:hover{ color:var(--gold-bright); }
   form{ display:flex; flex-direction:column; gap:1.1rem; }
+  .field{ display:flex; flex-direction:column; gap:.4rem; }
+  form label{
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold);
+  }
   form input, form textarea{
     background:transparent; border:none; border-bottom:1px solid rgba(243,238,227,0.25);
     color:var(--bone); padding:0.7rem 0; font-size:0.95rem; font-family:'Jost',sans-serif;
@@ -206,13 +241,16 @@
   form button:hover{ transform:translateY(-2px); }
 
   footer{
-    background:var(--obsidian); color:#7a7263; padding:1.8rem 5%;
+    background:var(--obsidian); color:#9a9282; padding:1.8rem 5%;
     display:flex; justify-content:space-between; border-top:1px solid rgba(201,154,62,0.14);
     font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:.04em;
   }
 
   @media (max-width:900px){
     nav ul{ display:none; }
+    .nav-toggle{ display:flex; }
+    .mobile-menu{ display:flex; }
+    .menu-backdrop.open{ display:block; }
     .statement-grid, .contact-grid{ grid-template-columns:1fr; gap:2.2rem; }
     .activity-grid{ grid-template-columns:repeat(2,1fr); }
     .cred-grid{ grid-template-columns:1fr; gap:2rem; }
@@ -232,7 +270,17 @@
     <li><a href="#board">Board of Director</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="menu-backdrop"></div>
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="#home" class="active">Home</a></li>
+  <li><a href="#activities">Core Business Activities</a></li>
+  <li><a href="#board">Board of Director</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>
 
 <section class="hero" id="home">
   <div class="hero-bg">
@@ -374,10 +422,10 @@
       </div>
     </div>
     <form class="reveal" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Inquiry sent';">
-      <input type="text" placeholder="Full name" required>
-      <input type="text" placeholder="Business name" required>
-      <input type="email" placeholder="Email" required>
-      <textarea placeholder="Tell us about your business"></textarea>
+      <div class="field"><label for="f-name">Full name</label><input id="f-name" type="text" placeholder="Your name" required></div>
+      <div class="field"><label for="f-business">Business name</label><input id="f-business" type="text" placeholder="Your business" required></div>
+      <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@business.com" required></div>
+      <div class="field"><label for="f-message">Message</label><textarea id="f-message" placeholder="Tell us about your business"></textarea></div>
       <button type="submit">Send Inquiry</button>
     </form>
   </div>
@@ -400,12 +448,33 @@
   }, { threshold: 0.15 });
   reveals.forEach(el => observer.observe(el));
 
-  document.querySelectorAll('nav a').forEach(link => {
+  const allNavLinks = document.querySelectorAll('nav a, .mobile-menu a');
+  allNavLinks.forEach(link => {
     link.addEventListener('click', () => {
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      link.classList.add('active');
+      allNavLinks.forEach(a => a.classList.remove('active'));
+      document.querySelectorAll(`a[href="${link.getAttribute('href')}"]`).forEach(a => a.classList.add('active'));
+      closeMenu();
     });
   });
+
+  const navToggle = document.querySelector('.nav-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const menuBackdrop = document.querySelector('.menu-backdrop');
+
+  function openMenu() {
+    navToggle.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('open');
+    menuBackdrop.classList.add('open');
+  }
+  function closeMenu() {
+    navToggle.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('open');
+    menuBackdrop.classList.remove('open');
+  }
+  navToggle.addEventListener('click', () => {
+    navToggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+  });
+  menuBackdrop.addEventListener('click', closeMenu);
 </script>
 
 </body>
