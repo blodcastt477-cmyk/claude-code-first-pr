@@ -146,6 +146,18 @@
   .scroll-hint .line{ width:1px; height:30px; background:var(--gold); animation:pulse 2.2s ease-in-out infinite; }
   @keyframes pulse{ 0%,100%{transform:scaleY(1); opacity:.5;} 50%{transform:scaleY(0.45); opacity:1;} }
 
+  /* ---------- SCROLL REVEAL ---------- */
+  .scroll-reveal-spacer{ position:relative; height:calc(1500px + 100vh); }
+  .scroll-reveal-sticky{
+    position:sticky; top:0; height:100vh; width:100%; overflow:hidden;
+    background:var(--obsidian);
+    clip-path:polygon(25% 25%, 75% 25%, 75% 75%, 25% 75%);
+  }
+  .scroll-reveal-bg{
+    position:absolute; inset:0; width:100%; height:100%;
+    background-position:center; background-repeat:no-repeat; background-size:170%;
+  }
+
   /* ---------- divider ---------- */
   .divider{ display:flex; justify-content:center; background:var(--bone); padding-top:0; }
   .divider svg{ width:140px; height:20px; }
@@ -297,6 +309,12 @@
   </div>
   <div class="scroll-hint"><div class="line"></div></div>
 </section>
+
+<div class="scroll-reveal-spacer" id="scrollReveal">
+  <div class="scroll-reveal-sticky">
+    <div class="scroll-reveal-bg" style="background-image:url('images/bukit-bintang-aerial-night.jpg')"></div>
+  </div>
+</div>
 
 <div class="divider"><svg viewBox="0 0 140 20"><line x1="0" y1="10" x2="55" y2="10"/><circle cx="70" cy="10" r="3"/><line x1="85" y1="10" x2="140" y2="10"/></svg></div>
 
@@ -475,6 +493,49 @@
     navToggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
   });
   menuBackdrop.addEventListener('click', closeMenu);
+
+  (function scrollReveal() {
+    const SCROLL_HEIGHT = 1500;
+    const INITIAL_CLIP = 25;
+    const FINAL_CLIP = 75;
+    const spacer = document.getElementById('scrollReveal');
+    const sticky = spacer.querySelector('.scroll-reveal-sticky');
+    const bg = spacer.querySelector('.scroll-reveal-bg');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    if (reduceMotion) {
+      sticky.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)';
+      bg.style.backgroundSize = '100%';
+      return;
+    }
+
+    let sectionTop = 0;
+    function measure() { sectionTop = spacer.offsetTop; }
+
+    function update() {
+      const clipProgress = clamp(window.scrollY - sectionTop, 0, SCROLL_HEIGHT) / SCROLL_HEIGHT;
+      const bgProgress = clamp(window.scrollY - sectionTop, 0, SCROLL_HEIGHT + 500) / (SCROLL_HEIGHT + 500);
+      const clipStart = lerp(INITIAL_CLIP, 0, clipProgress);
+      const clipEnd = lerp(FINAL_CLIP, 100, clipProgress);
+      sticky.style.clipPath = `polygon(${clipStart}% ${clipStart}%, ${clipEnd}% ${clipStart}%, ${clipEnd}% ${clipEnd}%, ${clipStart}% ${clipEnd}%)`;
+      bg.style.backgroundSize = `${lerp(170, 100, bgProgress)}%`;
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { update(); ticking = false; });
+    }
+
+    measure();
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { measure(); update(); });
+  })();
 </script>
 
 </body>
