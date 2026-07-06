@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXIS Optical &mdash; Independent Optician, Bukit Bintang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Sans:wght@400;500;600&family=Fragment+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F4F1;
+    --paper-2:#E9ECE8;
+    --ink:#14171A;
+    --ink-soft:#4A5157;
+    --line:rgba(20,23,26,0.16);
+    --flare-a:#3F9E77;
+    --flare-b:#8B7BE8;
+    --flare:linear-gradient(115deg, var(--flare-a) 10%, var(--flare-b) 90%);
+    --duo-red:#CE4A3E;
+    --duo-green:#3F9B5F;
+    --lens-r:170px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Instrument Sans',sans-serif;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  h1,h2,h3{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.02;
+  }
+  a{color:inherit; text-decoration:none;}
+  :focus-visible{outline:2px solid var(--flare-a); outline-offset:3px;}
+
+  .mono{
+    font-family:'Fragment Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+  .eyebrow{
+    font-family:'Fragment Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .eyebrow::before{
+    content:"";
+    display:inline-block; width:26px; height:1px;
+    background:var(--flare); vertical-align:middle; margin-right:0.8em;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.1rem 5%;
+    background:rgba(242,244,241,0.86);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.05rem; letter-spacing:0.01em;
+    display:flex; align-items:center; gap:0.55rem;
+  }
+  .brand .dot{
+    width:13px; height:13px; border-radius:50%;
+    background:var(--flare);
+    box-shadow:inset 0 0 0 3px var(--paper);
+    border:1px solid var(--ink);
+  }
+  nav ul{ display:flex; gap:2.2rem; list-style:none; align-items:center; }
+  nav ul li a{
+    font-family:'Fragment Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink-soft); transition:color .2s;
+  }
+  nav ul li a:hover{ color:var(--ink); }
+  .nav-cta{
+    background:var(--ink); color:var(--paper) !important;
+    padding:0.6rem 1.2rem; border-radius:999px; transition:transform .2s;
+    display:inline-block;
+  }
+  .nav-cta:hover{ transform:translateY(-1px); }
+  @media (max-width:820px){
+    nav ul li:not(.keep){ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    position:relative;
+    padding:8rem 6% 4rem;
+    overflow:hidden;
+  }
+  .hero-stage{ position:relative; }
+  .stage-copy .eyebrow{ margin-bottom:1.6rem; display:block; }
+  .stage-copy h1{
+    font-size:clamp(3.4rem, 10vw, 8.2rem);
+    max-width:12ch;
+  }
+  .stage-copy .sub{
+    margin-top:1.8rem;
+    max-width:46ch;
+    font-size:clamp(1rem, 1.4vw, 1.15rem);
+    line-height:1.65;
+    color:var(--ink-soft);
+  }
+  /* the uncorrected layer: blurred, with chromatic fringing */
+  .stage-blur{
+    filter:blur(7px);
+    opacity:0.85;
+  }
+  .stage-blur h1{
+    text-shadow:-4px 0 rgba(255,0,80,0.35), 4px 0 rgba(0,130,255,0.35);
+  }
+  /* the corrected layer: sharp, revealed only inside the lens */
+  .stage-sharp{
+    position:absolute; inset:0;
+    clip-path:circle(var(--lens-r) at var(--lx, 38%) var(--ly, 42%));
+    pointer-events:none;
+  }
+  .stage-sharp h1 em{
+    font-style:normal;
+    background:var(--flare);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .lens-ring{
+    position:absolute; left:0; top:0; z-index:3;
+    width:calc(var(--lens-r) * 2); height:calc(var(--lens-r) * 2);
+    border-radius:50%;
+    border:1px solid rgba(20,23,26,0.4);
+    background:radial-gradient(circle at 30% 28%, rgba(255,255,255,0.35), transparent 55%);
+    box-shadow:0 18px 50px rgba(20,23,26,0.12), inset 0 0 0 1px rgba(255,255,255,0.25);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+  }
+  .hero.lens-off .stage-blur{ filter:none; opacity:1; }
+  .hero.lens-off .stage-blur h1{ text-shadow:none; }
+  .hero.lens-off .stage-sharp, .hero.lens-off .lens-ring{ display:none; }
+
+  .hero-actions{
+    margin-top:3rem; display:flex; gap:1rem; flex-wrap:wrap;
+    position:relative; z-index:4;
+  }
+  .btn-primary{
+    background:var(--ink); color:var(--paper);
+    padding:0.95rem 2rem; border-radius:999px;
+    font-size:0.92rem; font-weight:500; letter-spacing:0.01em;
+    transition:transform .2s, box-shadow .2s;
+    display:inline-block;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(20,23,26,0.22); }
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--ink);
+    padding:0.95rem 2rem; border-radius:999px; font-size:0.92rem;
+    transition:border-color .2s, background .2s;
+    display:inline-block;
+  }
+  .btn-ghost:hover{ border-color:var(--ink); background:rgba(20,23,26,0.04); }
+  .hero-hint{
+    position:absolute; bottom:2rem; left:6%;
+    color:var(--ink-soft);
+  }
+  @media (hover:none){ .hero-hint .desktop-only{ display:none; } }
+
+  /* ---------- TICKER ---------- */
+  .ticker{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    overflow:hidden; padding:0.9rem 0;
+    background:var(--paper-2);
+  }
+  .ticker-track{
+    display:flex; gap:3.5rem; white-space:nowrap; width:max-content;
+    animation:tick 42s linear infinite;
+    font-family:'Fragment Mono',monospace; font-size:0.74rem; letter-spacing:0.12em;
+    color:var(--ink-soft);
+  }
+  .ticker-track b{ color:var(--ink); font-weight:400; }
+  @keyframes tick{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none; } }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:7rem 6%; }
+  .section-inner{ max-width:1200px; margin:0 auto; }
+  .section-head{ max-width:640px; margin-bottom:3.5rem; }
+  .section-head h2{ font-size:clamp(2.2rem, 4.5vw, 3.4rem); margin-top:0.9rem; }
+  .section-head p{ margin-top:1.1rem; color:var(--ink-soft); line-height:1.7; }
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- FRAMES ---------- */
+  .frames-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .frame-card{
+    background:var(--paper);
+    padding:2.6rem 2.2rem 2.2rem;
+    display:flex; flex-direction:column; gap:1.4rem;
+    transition:background .3s;
+  }
+  .frame-card:hover{ background:#fff; }
+  .frame-card svg{
+    width:100%; height:auto; display:block;
+    transition:filter .3s, transform .3s;
+  }
+  .frame-card:hover svg{
+    transform:rotate(-2deg);
+    filter:drop-shadow(3px 0 0 rgba(255,0,80,0.4)) drop-shadow(-3px 0 0 rgba(0,130,255,0.4));
+  }
+  .frame-meta{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; }
+  .frame-meta h3{ font-size:1.35rem; font-weight:600; }
+  .frame-meta .price{ font-family:'Fragment Mono',monospace; font-size:0.85rem; }
+  .frame-spec{
+    display:flex; justify-content:space-between; gap:1rem;
+    padding-top:1rem; border-top:1px solid var(--line);
+    font-family:'Fragment Mono',monospace; font-size:0.7rem; letter-spacing:0.08em;
+    color:var(--ink-soft);
+  }
+  @media (max-width:820px){ .frames-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- LENS STACK (dark) ---------- */
+  .lenses{
+    background:var(--ink); color:var(--paper);
+    position:relative; overflow:hidden;
+  }
+  .lenses::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(600px 400px at 12% 8%, rgba(63,158,119,0.16), transparent 65%),
+      radial-gradient(700px 500px at 90% 92%, rgba(139,123,232,0.16), transparent 65%);
+  }
+  .lenses .section-inner{ position:relative; }
+  .lenses .eyebrow{ color:rgba(242,244,241,0.6); }
+  .lenses .section-head p{ color:rgba(242,244,241,0.62); }
+  .lens-layout{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:4rem; align-items:center;
+  }
+  .lens-diagram svg{ width:100%; height:auto; display:block; }
+  .layer-list{ display:flex; flex-direction:column; }
+  .layer-item{
+    display:grid; grid-template-columns:44px 1fr; gap:1.4rem;
+    padding:1.5rem 0; border-bottom:1px solid rgba(242,244,241,0.14);
+  }
+  .layer-item:first-child{ border-top:1px solid rgba(242,244,241,0.14); }
+  .layer-key{
+    font-family:'Fragment Mono',monospace; font-size:0.72rem; letter-spacing:0.1em;
+    color:var(--flare-a); padding-top:0.2rem;
+  }
+  .layer-item:nth-child(even) .layer-key{ color:var(--flare-b); }
+  .layer-item h3{ font-size:1.08rem; font-weight:600; letter-spacing:0; }
+  .layer-item p{ margin-top:0.4rem; font-size:0.9rem; line-height:1.6; color:rgba(242,244,241,0.62); }
+  @media (max-width:920px){ .lens-layout{ grid-template-columns:1fr; gap:2.5rem; } }
+
+  /* ---------- SNELLEN CHART ---------- */
+  .chart{ background:var(--paper); }
+  .chart-frame{
+    max-width:880px; margin:0 auto;
+    border:1px solid var(--ink);
+    padding:3.5rem 2rem 0;
+    background:#FDFDFB;
+    box-shadow:0 30px 70px rgba(20,23,26,0.10);
+  }
+  .chart-row{
+    display:grid; grid-template-columns:70px 1fr 70px;
+    align-items:center; gap:1rem;
+    padding:0.9rem 0;
+  }
+  .chart-row + .chart-row{ border-top:1px dashed var(--line); }
+  .chart-row .acuity, .chart-row .rownum{
+    font-family:'Fragment Mono',monospace; font-size:0.66rem; letter-spacing:0.08em;
+    color:var(--ink-soft);
+  }
+  .chart-row .rownum{ text-align:right; }
+  .chart-row .letters{
+    text-align:center;
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+    letter-spacing:0.32em; text-transform:uppercase;
+    line-height:1;
+    white-space:nowrap;
+  }
+  .r1 .letters{ font-size:clamp(3.4rem, 8vw, 6rem); }
+  .r2 .letters{ font-size:clamp(2.4rem, 5.6vw, 4.2rem); }
+  .r3 .letters{ font-size:clamp(1.7rem, 4vw, 3rem); }
+  .r4 .letters{ font-size:clamp(1.25rem, 2.8vw, 2.1rem); }
+  .r5 .letters{ font-size:clamp(0.95rem, 2vw, 1.45rem); }
+  .r6 .letters{ font-size:clamp(0.72rem, 1.4vw, 1rem); }
+  .r7 .letters{ font-size:0.68rem; letter-spacing:0.26em; white-space:normal; line-height:1.6; }
+  .duochrome{
+    margin:2.5rem -2rem 0;
+    display:grid; grid-template-columns:1fr 1fr;
+  }
+  .duochrome div{
+    padding:1.1rem 0; text-align:center;
+    font-family:'Fragment Mono',monospace; font-size:0.78rem; letter-spacing:0.5em; text-indent:0.5em;
+    color:#fff;
+  }
+  .duochrome .red{ background:var(--duo-red); }
+  .duochrome .green{ background:var(--duo-green); }
+  .chart-caption{
+    text-align:center; margin-top:1.6rem; color:var(--ink-soft);
+  }
+  @media (max-width:640px){
+    .chart-row{ grid-template-columns:44px 1fr 44px; }
+    .chart-frame{ padding:2.2rem 1.2rem 0; }
+    .duochrome{ margin:2rem -1.2rem 0; }
+  }
+
+  /* ---------- VISIT ---------- */
+  .visit-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start;
+  }
+  .rx-card{
+    border:1px solid var(--ink);
+    background:#FDFDFB;
+    padding:2rem;
+    box-shadow:8px 8px 0 var(--paper-2), 8px 8px 0 1px var(--line);
+  }
+  .rx-card .rx-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-bottom:1.2rem; border-bottom:1px solid var(--ink); margin-bottom:1.4rem;
+  }
+  .rx-card .rx-head .rx{ font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.6rem; }
+  .rx-row{ display:grid; grid-template-columns:130px 1fr; gap:1rem; padding:0.7rem 0; }
+  .rx-row + .rx-row{ border-top:1px dashed var(--line); }
+  .rx-row .k{ font-family:'Fragment Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); padding-top:0.2rem; }
+  .rx-row .v{ font-size:0.95rem; line-height:1.55; }
+  .rx-row .v a:hover{ background:var(--flare); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .visit-copy h2{ font-size:clamp(2.2rem, 4.5vw, 3.2rem); margin-top:0.9rem; }
+  .visit-copy p{ margin-top:1.2rem; color:var(--ink-soft); line-height:1.7; max-width:44ch; }
+  .visit-copy .btn-primary{ margin-top:2.2rem; }
+  @media (max-width:920px){ .visit-grid{ grid-template-columns:1fr; gap:2.5rem; } }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:1.6rem 6%;
+    display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+    font-family:'Fragment Mono',monospace; font-size:0.68rem; letter-spacing:0.08em;
+    color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>AXIS OPTICAL</a>
+  <ul>
+    <li><a href="#frames">Frames</a></li>
+    <li><a href="#lenses">Lenses</a></li>
+    <li><a href="#chart">The chart</a></li>
+    <li><a href="#visit">Visit</a></li>
+    <li class="keep"><a class="nav-cta" href="#visit">Book an exam</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-stage" id="heroStage">
+    <div class="stage-copy stage-blur" id="stageBlur">
+      <span class="eyebrow">Independent optician &mdash; Bukit Bintang, Kuala Lumpur</span>
+      <h1>Blur is optional.</h1>
+      <p class="sub">Eye exams on real instruments, lenses cut in-house, and frames fitted by hand. This is roughly how the street looks at &minus;1.75 dioptres. We fix that.</p>
+    </div>
+    <div class="stage-copy stage-sharp" aria-hidden="true">
+      <span class="eyebrow">Independent optician &mdash; Bukit Bintang, Kuala Lumpur</span>
+      <h1>Blur is <em>optional.</em></h1>
+      <p class="sub">Eye exams on real instruments, lenses cut in-house, and frames fitted by hand. This is roughly how the street looks at &minus;1.75 dioptres. We fix that.</p>
+    </div>
+    <div class="lens-ring" id="lensRing"></div>
+  </div>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#visit">Book an eye exam</a>
+    <a class="btn-ghost" href="#frames">Browse frames</a>
+  </div>
+  <div class="hero-hint mono"><span class="desktop-only">Move your cursor &mdash; that&rsquo;s what a good lens does</span></div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>OD <b>SPH &minus;1.75</b> CYL &minus;0.50 &times; 175</span>
+    <span>OS <b>SPH &minus;2.00</b> CYL &minus;0.25 &times; 010</span>
+    <span>PD <b>62 MM</b></span>
+    <span>ADD <b>+1.00</b></span>
+    <span>VA <b>20/20</b> BOTH EYES</span>
+    <span>NEXT EXAM <b>12 MONTHS</b></span>
+    <span>OD <b>SPH &minus;1.75</b> CYL &minus;0.50 &times; 175</span>
+    <span>OS <b>SPH &minus;2.00</b> CYL &minus;0.25 &times; 010</span>
+    <span>PD <b>62 MM</b></span>
+    <span>ADD <b>+1.00</b></span>
+    <span>VA <b>20/20</b> BOTH EYES</span>
+    <span>NEXT EXAM <b>12 MONTHS</b></span>
+  </div>
+</div>
+
+<section id="frames">
+  <div class="section-inner">
+    <span class="eyebrow">Frames &mdash; cut &amp; fit in-store</span>
+    <div class="section-head">
+      <h2>Four house shapes, named after the streets outside.</h2>
+      <p>Acetate and titanium, adjusted to your face at the bench &mdash; not out of a drawer. Every frame ships with your measurements engraved inside the temple.</p>
+    </div>
+    <div class="frames-grid">
+
+      <div class="frame-card reveal">
+        <svg viewBox="0 0 340 130" role="img" aria-label="Round panto frame illustration">
+          <defs>
+            <linearGradient id="tintA" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3F9E77" stop-opacity="0.10"/>
+              <stop offset="1" stop-color="#8B7BE8" stop-opacity="0.10"/>
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="70" r="46" fill="url(#tintA)" stroke="#14171A" stroke-width="3"/>
+          <circle cx="240" cy="70" r="46" fill="url(#tintA)" stroke="#14171A" stroke-width="3"/>
+          <path d="M146 62 Q170 46 194 62" fill="none" stroke="#14171A" stroke-width="3"/>
+          <path d="M54 62 L20 52" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+          <path d="M286 62 L320 52" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="frame-meta"><h3>Imbi</h3><span class="price">RM 640</span></div>
+        <div class="frame-spec"><span>47&#9633;22&ndash;145</span><span>MATTE ACETATE</span><span>PANTO ROUND</span></div>
+      </div>
+
+      <div class="frame-card reveal">
+        <svg viewBox="0 0 340 130" role="img" aria-label="Rectangular frame illustration">
+          <rect x="42" y="34" width="110" height="70" rx="12" fill="url(#tintA)" stroke="#14171A" stroke-width="3"/>
+          <rect x="188" y="34" width="110" height="70" rx="12" fill="url(#tintA)" stroke="#14171A" stroke-width="3"/>
+          <path d="M152 52 Q170 42 188 52" fill="none" stroke="#14171A" stroke-width="3"/>
+          <path d="M42 50 L12 42" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+          <path d="M298 50 L328 42" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="frame-meta"><h3>Ceylon</h3><span class="price">RM 720</span></div>
+        <div class="frame-spec"><span>52&#9633;19&ndash;148</span><span>BRUSHED TITANIUM</span><span>RECTANGLE</span></div>
+      </div>
+
+      <div class="frame-card reveal">
+        <svg viewBox="0 0 340 130" role="img" aria-label="Cat-eye frame illustration">
+          <path d="M40 56 Q66 34 108 40 Q152 48 150 76 Q146 106 104 104 Q56 102 40 56 Z" fill="url(#tintA)" stroke="#14171A" stroke-width="3"/>
+          <path d="M300 56 Q274 34 232 40 Q188 48 190 76 Q194 106 236 104 Q284 102 300 56 Z" fill="url(#tintA)" stroke="#14171A" stroke-width="3"/>
+          <path d="M150 62 Q170 52 190 62" fill="none" stroke="#14171A" stroke-width="3"/>
+          <path d="M44 52 L14 40" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+          <path d="M296 52 L326 40" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="frame-meta"><h3>Bintang</h3><span class="price">RM 780</span></div>
+        <div class="frame-spec"><span>50&#9633;20&ndash;142</span><span>TORTOISE ACETATE</span><span>CAT-EYE</span></div>
+      </div>
+
+      <div class="frame-card reveal">
+        <svg viewBox="0 0 340 130" role="img" aria-label="Aviator frame illustration">
+          <path d="M46 44 Q100 32 148 46 Q152 92 112 104 Q60 112 46 44 Z" fill="url(#tintA)" stroke="#14171A" stroke-width="3"/>
+          <path d="M294 44 Q240 32 192 46 Q188 92 228 104 Q280 112 294 44 Z" fill="none" stroke="#14171A" stroke-width="3"/>
+          <path d="M148 52 Q170 44 192 52" fill="none" stroke="#14171A" stroke-width="3"/>
+          <path d="M148 60 Q170 54 192 60" fill="none" stroke="#14171A" stroke-width="2"/>
+          <path d="M48 48 L16 40" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+          <path d="M292 48 L324 40" fill="none" stroke="#14171A" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="frame-meta"><h3>Pudu</h3><span class="price">RM 690</span></div>
+        <div class="frame-spec"><span>55&#9633;18&ndash;150</span><span>GOLD WIRE</span><span>AVIATOR</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="lenses" id="lenses">
+  <div class="section-inner">
+    <span class="eyebrow">The lens stack</span>
+    <div class="section-head">
+      <h2>Five layers between you and the glare.</h2>
+      <p>A finished lens is a sandwich of coatings around a high-index core. The green-violet sheen you see on good glasses is the anti-reflective layer doing its job.</p>
+    </div>
+    <div class="lens-layout">
+      <div class="lens-diagram reveal">
+        <svg viewBox="0 0 520 420" role="img" aria-label="Cross-section of a lens showing its five coating layers">
+          <defs>
+            <linearGradient id="flare" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3F9E77"/>
+              <stop offset="1" stop-color="#8B7BE8"/>
+            </linearGradient>
+          </defs>
+          <!-- layered lens profiles, front to back -->
+          <path d="M170 30 Q60 210 170 390" fill="none" stroke="url(#flare)" stroke-width="3"/>
+          <path d="M205 38 Q105 210 205 382" fill="none" stroke="#F2F4F1" stroke-width="2" opacity="0.55"/>
+          <path d="M240 46 Q150 210 240 374" fill="none" stroke="#F2F4F1" stroke-width="2" opacity="0.4"/>
+          <path d="M275 54 Q195 210 275 366" fill="none" stroke="#F2F4F1" stroke-width="2" opacity="0.3"/>
+          <path d="M310 62 Q240 210 310 358" fill="none" stroke="#F2F4F1" stroke-width="6" opacity="0.9"/>
+          <!-- incoming light ray refracting -->
+          <path d="M20 120 L150 185" stroke="#F2F4F1" stroke-width="1.5" opacity="0.7" stroke-dasharray="6 5"/>
+          <path d="M150 185 L360 240" stroke="url(#flare)" stroke-width="1.5"/>
+          <circle cx="150" cy="185" r="4" fill="url(#flare)"/>
+          <!-- reflected flare bouncing off AR coat -->
+          <path d="M150 185 L95 95" stroke="#8B7BE8" stroke-width="1" opacity="0.6" stroke-dasharray="3 4"/>
+          <!-- labels -->
+          <g font-family="Fragment Mono, monospace" font-size="11" letter-spacing="1.5" fill="#F2F4F1" opacity="0.75">
+            <text x="118" y="20">AR</text>
+            <text x="186" y="28">BLUE-LIGHT</text>
+            <text x="330" y="52">CORE 1.67</text>
+            <text x="370" y="255" fill="#8B7BE8">FOCUSED RAY</text>
+            <text x="30" y="88" fill="#8B7BE8">REFLECTION LOST</text>
+          </g>
+        </svg>
+      </div>
+      <div class="layer-list">
+        <div class="layer-item reveal">
+          <span class="layer-key">L-01</span>
+          <div><h3>Anti-reflective coating</h3><p>Cancels reflections on both surfaces, so people see your eyes instead of the caf&eacute; lights behind you.</p></div>
+        </div>
+        <div class="layer-item reveal">
+          <span class="layer-key">L-02</span>
+          <div><h3>Blue-light filter</h3><p>Trims the harshest band of screen light without turning the world yellow.</p></div>
+        </div>
+        <div class="layer-item reveal">
+          <span class="layer-key">L-03</span>
+          <div><h3>Scratch-resistant hard coat</h3><p>A quartz-hard shell over the optics. Keys, bags, and toddlers included in the warranty maths.</p></div>
+        </div>
+        <div class="layer-item reveal">
+          <span class="layer-key">L-04</span>
+          <div><h3>UV barrier</h3><p>Blocks UVA and UVB across the whole lens, clear or tinted &mdash; KL sun is not optional.</p></div>
+        </div>
+        <div class="layer-item reveal">
+          <span class="layer-key">L-05</span>
+          <div><h3>High-index core, 1.67</h3><p>The prescription itself, cut thin. Strong corrections without the bottle-bottom look.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chart" id="chart">
+  <div class="section-inner">
+    <div class="chart-frame reveal">
+      <div class="chart-row r1"><span class="acuity">20/200</span><span class="letters">IF</span><span class="rownum">1</span></div>
+      <div class="chart-row r2"><span class="acuity">20/100</span><span class="letters">YOU</span><span class="rownum">2</span></div>
+      <div class="chart-row r3"><span class="acuity">20/70</span><span class="letters">CAN</span><span class="rownum">3</span></div>
+      <div class="chart-row r4"><span class="acuity">20/50</span><span class="letters">READ</span><span class="rownum">4</span></div>
+      <div class="chart-row r5"><span class="acuity">20/40</span><span class="letters">THIS ROW</span><span class="rownum">5</span></div>
+      <div class="chart-row r6"><span class="acuity">20/30</span><span class="letters">WITHOUT SQUINTING</span><span class="rownum">6</span></div>
+      <div class="chart-row r7"><span class="acuity">20/20</span><span class="letters">your eyes are fine &mdash; everyone else, book the exam</span><span class="rownum">7</span></div>
+      <div class="duochrome">
+        <div class="red">AXIS</div>
+        <div class="green">OPTICAL</div>
+      </div>
+    </div>
+    <p class="chart-caption mono">Duochrome check: if the red side reads sharper, you may be short-sighted. Come see us.</p>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="section-inner visit-grid">
+    <div class="visit-copy reveal">
+      <span class="eyebrow">Visit &mdash; walk-ins welcome</span>
+      <h2>Thirty minutes. Every instrument. No upsell.</h2>
+      <p>A full exam covers refraction, eye pressure, and retinal imaging. You leave with your prescription on paper &mdash; it&rsquo;s yours, whether or not you buy frames from us.</p>
+      <a class="btn-primary" href="mailto:hello@axisoptical.my?subject=Eye%20exam%20booking">Book an eye exam</a>
+    </div>
+    <div class="rx-card reveal">
+      <div class="rx-head"><span class="rx">&#8478;</span><span class="mono">AXIS OPTICAL &mdash; KL</span></div>
+      <div class="rx-row"><span class="k">Address</span><span class="v">163 Jalan Imbi, 55100 Bukit Bintang, Kuala Lumpur</span></div>
+      <div class="rx-row"><span class="k">Hours</span><span class="v">Mon&ndash;Sat 10:30&ndash;20:00, Sun 12:00&ndash;18:00</span></div>
+      <div class="rx-row"><span class="k">Phone</span><span class="v"><a href="tel:+60321101988">(+60) 3-2110 1988</a></span></div>
+      <div class="rx-row"><span class="k">Email</span><span class="v"><a href="mailto:hello@axisoptical.my">hello@axisoptical.my</a></span></div>
+      <div class="rx-row"><span class="k">Exam fee</span><span class="v">RM 90 &mdash; waived with any frame</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 AXIS Optical Sdn. Bhd.</span>
+  <span>Registered optometrists &mdash; Malaysian Optical Council</span>
+</footer>
+
+<script>
+  // scroll-fade reveals
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+
+  // hero lens: sharp layer clipped to a circle that follows the cursor
+  (function heroLens() {
+    const hero = document.getElementById('top');
+    const stage = document.getElementById('heroStage');
+    const sharp = stage.querySelector('.stage-sharp');
+    const ring = document.getElementById('lensRing');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const noHover = window.matchMedia('(hover: none)').matches;
+
+    if (reduceMotion) {
+      hero.classList.add('lens-off');
+      return;
+    }
+
+    function setLens(stageX, stageY) {
+      sharp.style.clipPath = `circle(var(--lens-r) at ${stageX}px ${stageY}px)`;
+      ring.style.left = stageX + 'px';
+      ring.style.top = stageY + 'px';
+    }
+
+    // start centered on the headline
+    let rect = stage.getBoundingClientRect();
+    setLens(rect.width * 0.34, rect.height * 0.42);
+
+    if (noHover) {
+      // no cursor: let the lens drift in a slow figure-eight over the headline
+      let t = 0;
+      (function drift() {
+        rect = stage.getBoundingClientRect();
+        t += 0.008;
+        const x = rect.width * (0.4 + 0.26 * Math.sin(t));
+        const y = rect.height * (0.45 + 0.22 * Math.sin(t * 2));
+        setLens(x, y);
+        requestAnimationFrame(drift);
+      })();
+      return;
+    }
+
+    hero.addEventListener('pointermove', (e) => {
+      rect = stage.getBoundingClientRect();
+      setLens(e.clientX - rect.left, e.clientY - rect.top);
+    });
+  })();
+</script>
+
+</body>
+</html>
