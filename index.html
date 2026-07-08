@@ -299,8 +299,33 @@
       linear-gradient(160deg, var(--charcoal-2), var(--obsidian));
     display:flex; align-items:center; justify-content:center; overflow:hidden;
   }
-  .chair-frame svg{ width:62%; height:auto; }
-  .chair-frame .corner{ position:absolute; width:26px; height:26px; border-color:var(--gold); border-style:solid; border-width:0; }
+  .chair-photo{
+    position:absolute; inset:0; overflow:hidden;
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path 1.3s cubic-bezier(.19,1,.22,1) .25s;
+  }
+  .chair-figure.in .chair-photo{ clip-path:inset(0 0 0 0); }
+  .chair-drift{ position:absolute; left:0; right:0; top:-7%; bottom:-7%; will-change:transform; }
+  .chair-drift img{
+    width:100%; height:100%; object-fit:cover; object-position:50% 18%;
+    filter:saturate(1.05) contrast(1.04);
+    animation:kenBurns 26s ease-in-out infinite alternate;
+  }
+  @keyframes kenBurns{
+    from{ transform:scale(1.04) translate(0,0); }
+    to{ transform:scale(1.14) translate(-2.5%, 1.8%); }
+  }
+  .chair-photo::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(10,8,7,0.16), transparent 22%, transparent 68%, rgba(10,8,7,0.42)),
+      radial-gradient(ellipse at 50% 30%, transparent 62%, rgba(10,8,7,0.28));
+  }
+  @media (prefers-reduced-motion: reduce){
+    .chair-photo{ clip-path:none; }
+    .chair-drift img{ animation:none; }
+  }
+  .chair-frame .corner{ position:absolute; width:26px; height:26px; border-color:var(--gold); border-style:solid; border-width:0; z-index:2; }
   .corner.tl{ top:-1px; left:-1px; border-top-width:2px; border-left-width:2px; }
   .corner.tr{ top:-1px; right:-1px; border-top-width:2px; border-right-width:2px; }
   .corner.bl{ bottom:-1px; left:-1px; border-bottom-width:2px; border-left-width:2px; }
@@ -621,13 +646,12 @@
     <div class="chair-grid">
       <div class="chair-figure reveal" data-reveal="left">
         <div class="chair-frame">
+          <div class="chair-photo">
+            <div class="chair-drift">
+              <img src="images/chairman-sofiya.jpg" alt="Dato&rsquo; Dr. Sofiya Mohd Rozhi, Chairman of Koperasi Usahawan Bukit Bintang Berhad" loading="lazy">
+            </div>
+          </div>
           <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-          <svg viewBox="0 0 200 260" fill="none" aria-hidden="true">
-            <circle cx="100" cy="88" r="46" stroke="#C99A3E" stroke-width="1.4"/>
-            <path d="M30 232c8-52 38-74 70-74s62 22 70 74" stroke="#C99A3E" stroke-width="1.4"/>
-            <path d="M64 66c8-22 64-26 72 4" stroke="#E7C873" stroke-width="1.2"/>
-            <path d="M100 12l3.5 10.2 10.5.4-8.2 6.9 2.8 10.5L100 34l-8.6 6 2.8-10.5-8.2-6.9 10.5-.4L100 12z" fill="#C99A3E"/>
-          </svg>
         </div>
         <div class="chair-caption">
           <span>Chairman &middot; Since 2022</span>
@@ -1044,7 +1068,7 @@
     const marquee = document.querySelector('.marquee');
     const ghosts = [...document.querySelectorAll('.ghost')].map(g => ({ el:g, host:g.parentElement }));
     const chairFrame = document.querySelector('.chair-frame');
-    const chairSvg = chairFrame ? chairFrame.querySelector('svg') : null;
+    const chairDrift = chairFrame ? chairFrame.querySelector('.chair-drift') : null;
     const footGiant = document.querySelector('.foot-giant');
     const cards = [...document.querySelectorAll('.division')];
     const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
@@ -1092,12 +1116,12 @@
             const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
             g.el.style.transform = 'translateX(' + ((p - 0.5) * 12).toFixed(2) + 'vw)';
           });
-          // chairman figure parallax
-          if(chairFrame && chairSvg){
+          // chairman portrait floats gently within the gold-cornered frame
+          if(chairFrame && chairDrift){
             const r = chairFrame.getBoundingClientRect();
             if(!(r.bottom < 0 || r.top > vh)){
               const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-              chairSvg.style.transform = 'translateY(' + ((0.5 - p) * 36).toFixed(1) + 'px)';
+              chairDrift.style.transform = 'translateY(' + ((0.5 - p) * 30).toFixed(1) + 'px)';
             }
           }
           // stacked division cards recede as the next one covers them
