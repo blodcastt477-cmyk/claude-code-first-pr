@@ -487,6 +487,15 @@
   .svc .s-num{ font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:.16em; color:rgba(28,24,18,0.45); }
   .svc h3{ font-family:'Jost',sans-serif; font-weight:500; font-size:1.08rem; letter-spacing:.02em; color:var(--ink); }
   .svc p{ font-size:.92rem; line-height:1.6; color:rgba(28,24,18,0.65); }
+  .svc-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.3rem; }
+  .svc-top svg{ width:27px; height:27px; stroke:var(--gold-deep); flex:none; transition:stroke .3s; }
+  .svc:hover .svc-top svg{ stroke:var(--gold); }
+  .svc-cta{ background:var(--obsidian); gap:.9rem; }
+  .svc-cta:hover{ background:var(--charcoal-2); }
+  .svc-cta .cta-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
+  .svc-cta h3{ color:var(--bone); font-size:1.35rem; line-height:1.25; }
+  .svc-cta h3 em{ font-style:italic; color:var(--gold-bright); }
+  .svc-cta .btn{ margin-top:auto; align-self:flex-start; }
 
   /* ---------- WHY CHOOSE ---------- */
   .why{ background:var(--charcoal); color:var(--bone); position:relative; overflow:hidden; }
@@ -955,62 +964,97 @@
     </div>
     <div class="svc-grid">
       <div class="svc reveal" data-reveal="scale">
-        <div class="s-num">SV/01</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 001 1h18a1 1 0 001-1v-2a1 1 0 00-1-1H3a1 1 0 00-1 1v2zM10 10V5a1 1 0 011-1h2a1 1 0 011 1v5M4 15v-3a6 6 0 016-6M14 6a6 6 0 016 6v3"/></svg>
+          <div class="s-num">SV/01</div>
+        </div>
         <h3>Contractor License Registration</h3>
         <p>CIDB Contractor License Registration from G1 to G7 for contractors who want to register or upgrade their contractor grade.</p>
       </div>
       <div class="svc reveal" data-reveal="scale" data-delay="1">
-        <div class="s-num">SV/02</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <div class="s-num">SV/02</div>
+        </div>
         <h3>CIDB Related Registration</h3>
         <p>Registration assistance for MCORE, SKOR, and SPKK, helping contractors meet industry requirements and improve business credibility.</p>
       </div>
       <div class="svc reveal" data-reveal="scale" data-delay="2">
-        <div class="s-num">SV/03</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2l8 5H4l8-5z"/></svg>
+          <div class="s-num">SV/03</div>
+        </div>
         <h3>MOF License Registration</h3>
         <p>Ministry of Finance MOF license registration for businesses that wish to participate in government procurement and tender opportunities.</p>
       </div>
       <div class="svc reveal" data-reveal="scale">
-        <div class="s-num">SV/04</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7S6 9 6 13.5a6 6 0 0012 0C18 9 12 2.7 12 2.7z"/></svg>
+          <div class="s-num">SV/04</div>
+        </div>
         <h3>SPAN Permit Registration</h3>
         <p>Assistance with SPAN permit registration for companies involved in water supply and sewerage-related services.</p>
       </div>
       <div class="svc reveal" data-reveal="scale" data-delay="1">
-        <div class="s-num">SV/05</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13L17 22l-5-3-5 3 1.5-9"/></svg>
+          <div class="s-num">SV/05</div>
+        </div>
         <h3>ISO Registration</h3>
         <p>Support for ISO registration to help businesses improve quality standards, management systems, and company professionalism.</p>
       </div>
       <div class="svc reveal" data-reveal="scale" data-delay="2">
-        <div class="s-num">SV/06</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M6 16c.5-1.5 4.5-1.5 5 0M14 9h5M14 12h5M14 15h3"/></svg>
+          <div class="s-num">SV/06</div>
+        </div>
         <h3>CIDB Green Card Registration</h3>
         <p>Registration assistance for CIDB Green Card for workers and contractors involved in construction-related work.</p>
       </div>
       <div class="svc reveal" data-reveal="scale">
-        <div class="s-num">SV/07</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+          <div class="s-num">SV/07</div>
+        </div>
         <h3>Company Registration</h3>
         <p>We assist with the registration of Sdn Bhd companies for business owners who want to operate under a proper corporate structure.</p>
       </div>
       <div class="svc reveal" data-reveal="scale" data-delay="1">
-        <div class="s-num">SV/08</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 11-12h-8l1-8z"/></svg>
+          <div class="s-num">SV/08</div>
+        </div>
         <h3>TNB Vendor Registration</h3>
         <p>Assistance with TNB vendor registration for companies that wish to become registered vendors or suppliers.</p>
       </div>
       <div class="svc reveal" data-reveal="scale" data-delay="2">
-        <div class="s-num">SV/09</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3 8-10V5l-8-3-8 3v7c0 7 8 10 8 10zM9 12l2 2 4-4"/></svg>
+          <div class="s-num">SV/09</div>
+        </div>
         <h3>Integrity Course Registration</h3>
         <p>Registration assistance for Integrity Courses required for certain licensing, tender, and compliance purposes.</p>
       </div>
       <div class="svc reveal" data-reveal="scale">
-        <div class="s-num">SV/10</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 014 4v12a3 3 0 00-3-3H2V4zM22 4h-6a4 4 0 00-4 4v12a3 3 0 013-3h7V4z"/></svg>
+          <div class="s-num">SV/10</div>
+        </div>
         <h3>Business Management Course Registration</h3>
         <p>Assistance with Business Management Course (SKP) registration for business owners and contractors who need to fulfil industry requirements.</p>
       </div>
       <div class="svc reveal" data-reveal="scale" data-delay="1">
-        <div class="s-num">SV/11</div>
+        <div class="svc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M7.8 16.2a6 6 0 010-8.4M16.2 7.8a6 6 0 010 8.4M4.9 19.1C1 15.2 1 8.8 4.9 4.9M19.1 4.9c3.9 3.9 3.9 10.3 0 14.2"/></svg>
+          <div class="s-num">SV/11</div>
+        </div>
         <h3>TM Technical Certificate Registration</h3>
         <p>Registration assistance for TM Technical Certificate for businesses involved in technical and telecommunication-related services.</p>
       </div>
-      <div class="svc reveal" data-reveal="scale" data-delay="1" style="justify-content:center; align-items:flex-start;">
-        <a class="btn btn-submit" href="#contact">Start Your Application</a>
+      <div class="svc svc-cta reveal" data-reveal="scale" data-delay="2">
+        <div class="cta-eyebrow">Ready When You Are</div>
+        <h3>Need help with a <em>registration?</em></h3>
+        <a class="btn btn-solid" href="#contact">Start Your Application</a>
       </div>
     </div>
   </div>
