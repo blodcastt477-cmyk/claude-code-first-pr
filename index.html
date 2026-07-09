@@ -453,6 +453,21 @@
   .div-title h3{ font-size:clamp(1.7rem,3.4vw,2.8rem); color:var(--bone); line-height:1.1; }
   .div-title .div-tag{ font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-top:.5rem; }
   .div-head svg{ width:44px; height:44px; stroke:var(--gold); flex:none; opacity:.9; }
+  .div-media{
+    margin-top:1.6rem; aspect-ratio:21/8; overflow:hidden; position:relative;
+    border:1px solid var(--line);
+  }
+  .div-media img{
+    width:100%; height:100%; object-fit:cover;
+    transform:scale(1.03);
+    filter:saturate(1.02) contrast(1.03);
+    transition:transform 1.2s cubic-bezier(.19,1,.22,1);
+  }
+  .division:hover .div-media img{ transform:scale(1.09); }
+  .div-media::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(10,8,7,0.25), transparent 35%, transparent 75%, rgba(10,8,7,0.35));
+  }
   .division > p{ margin-top:1.4rem; max-width:66ch; color:rgba(243,238,227,0.72); line-height:1.7; }
   .services{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:1.8rem; }
   .service{ background:rgba(10,8,7,0.55); padding:1.4rem 1.3rem; transition:background .3s; }
@@ -573,6 +588,7 @@
     .about-grid, .chair-grid, .contact-grid, .why-grid{ grid-template-columns:1fr; }
     .chair-figure{ max-width:420px; }
     .services{ grid-template-columns:1fr; }
+    .div-media{ aspect-ratio:16/9; }
     .hero-meta .wrap{ grid-template-columns:1fr; }
     .hero-meta .cell + .cell{ border-left:none; padding-left:0; border-top:1px solid rgba(243,238,227,0.12); }
     form{ grid-template-columns:1fr; }
@@ -874,6 +890,7 @@
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21l4-16h4l4 16M4 21h16M8.5 11h7M7.5 15h9M12 5V3"/></svg>
       </div>
+      <div class="div-media"><img src="images/divisions/oil-gas.avif" alt="Offshore oil and gas supply operations" loading="lazy"></div>
       <p>Supplying offshore oil rigs with industrial drilling equipment, bulk liquids, specialized chemicals, and essential consumables. Delivery support includes marine vessels and helicopter logistics.</p>
       <div class="services">
         <div class="service"><h4>Drilling Equipment</h4><p>Heavy-duty drill bits, casings, BOP systems, and mud pumps delivered on schedule.</p></div>
@@ -891,6 +908,7 @@
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7a2 2 0 002 2v9M9 3v5M11 3v5M17 3c-1.7 1.5-2.5 3.8-2.5 6.5 0 1 .2 1.5 1 1.5h1.5v10"/></svg>
       </div>
+      <div class="div-media"><img src="images/divisions/fnb-franchise.avif" alt="Food and beverage franchise consultancy" loading="lazy" style="object-position:50% 30%"></div>
       <p>Professional consultancy services for local Food &amp; Beverage franchise development and expansion.</p>
       <div class="services">
         <div class="service"><h4>Franchise Business Planning</h4><p>Business plans, financial modelling, and feasibility studies for F&amp;B franchise models.</p></div>
@@ -908,6 +926,7 @@
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg>
       </div>
+      <div class="div-media"><img src="images/divisions/property.avif" alt="Property and development in Kuala Lumpur" loading="lazy"></div>
       <p>Strategic acquisition, construction, and management of high-value commercial and residential spaces in Kuala Lumpur.</p>
       <div class="services">
         <div class="service"><h4>Real Estate Investment</h4><p>Property acquisition, land banking, and investment portfolio management.</p></div>
@@ -925,6 +944,7 @@
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM3.3 8.3L12 13l8.7-4.7M12 13v8"/></svg>
       </div>
+      <div class="div-media"><img src="images/divisions/trading.avif" alt="Trading and distribution warehouse operations" loading="lazy"></div>
       <p>Import and distribution of household products, furniture, home d&eacute;cor, and cosmetic products from China and South Korea — supporting local entrepreneurs with access to quality products at competitive pricing.</p>
       <div class="services">
         <div class="service"><h4>Household &amp; Furniture</h4><p>Import and distribution of household products and furniture.</p></div>
@@ -942,6 +962,7 @@
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M8 8V5a4 4 0 018 0v3M12 15v3"/></svg>
       </div>
+      <div class="div-media"><img src="images/divisions/event-space.avif" alt="Corporate event space and business premises" loading="lazy" style="object-position:50% 22%"></div>
       <p>Strategic event spaces and business premises for entrepreneurs and organizations to promote products, services, and brands through permanent and flexible solutions.</p>
       <div class="services">
         <div class="service"><h4>Permanent Business Premises</h4><p>Retail and business spaces for long-term operations in prime Kuala Lumpur locations.</p></div>
