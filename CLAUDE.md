@@ -4,17 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Two single-page static websites, plus the repo's original purpose as a practice
+A single-page static website, plus the repo's original purpose as a practice
 ground for the GitHub + Claude Code PR workflow (clone, branch, commit, push, PR):
 
 - `index.html` — KUBINTANG, a site for Koperasi Usahawan Bukit Bintang Berhad,
   a Malaysian cooperative.
-- `optical.html` — D'EYEWEAR, an independent optician shop in SS2, Petaling Jaya
-  (real business details: address, phone 03-7877 9576, info@deyewear.com).
-  Frame prices on this page are placeholders, not confirmed by the owner.
-  **Note:** the canonical copy of this site now lives in the separate repo
-  `blodcastt477-cmyk/deyewear` (deployed to https://deyewear.store); the copy
-  here is a legacy duplicate — edit the other repo for D'EYEWEAR changes.
+
+A second site, D'EYEWEAR (an optician in SS2, Petaling Jaya), was built here
+but now lives in its own repo `blodcastt477-cmyk/deyewear`, deployed to
+https://deyewear.store. Edit that repo for D'EYEWEAR changes. Its frame prices
+are placeholders, not confirmed by the owner.
 
 Site work happens on feature branches (currently `feature/koperasi-website`)
 with PRs into `main`. `main` contains only the README.
@@ -47,10 +46,9 @@ relative path and Google Fonts.
 
 ## Architecture
 
-Each site is one self-contained HTML file: CSS in a single `<style>` block in
+The site is one self-contained HTML file: CSS in a single `<style>` block in
 `<head>`, markup, then all JS in one `<script>` block at the end of `<body>`.
-The only binary assets are photos in `images/` (used by `index.html` only;
-`optical.html` draws all graphics as inline SVG). Keep this single-file
+The only binary assets are photos in `images/`. Keep this single-file
 structure — don't split out CSS/JS files.
 
 ### index.html (KUBINTANG)
@@ -65,24 +63,9 @@ structure — don't split out CSS/JS files.
   constants at the top of the `scrollReveal()` IIFE.
 - Contact form is front-end only (no backend).
 
-### optical.html (D'EYEWEAR)
+### Conventions
 
-- Colors in `:root`: ink on cool optical-white, with a green→violet
-  "anti-reflective coating flare" gradient (`--flare`) as the only accent.
-  Fonts: Bricolage Grotesque (display), Instrument Sans (body), Fragment Mono
-  (prescription-style data).
-- Signature interaction: the hero headline is blurred with chromatic fringing;
-  a cursor-following lens (`.stage-sharp` clipped to a circle + `.lens-ring`)
-  reveals sharp text. Blur and sharp layers duplicate the same copy — edit both.
-  Touch devices get an auto-drifting lens; reduced motion disables the effect
-  via the `.lens-off` class.
-- Other graphic set pieces: prescription ticker, SVG frame illustrations with
-  real temple measurements (e.g. `47□22–145`), lens cross-section diagram,
-  Snellen eye chart where copy shrinks by acuity row, red/green duochrome strip.
-
-### Shared conventions
-
-Both pages support `prefers-reduced-motion` in CSS and JS, use
-IntersectionObserver-driven `.reveal` → `.in` scroll fades, and keep
+The page supports `prefers-reduced-motion` in CSS and JS, uses
+IntersectionObserver-driven `.reveal` → `.in` scroll fades, and keeps
 `:focus-visible` outlines. Preserve these when adding animated or interactive
 features.
