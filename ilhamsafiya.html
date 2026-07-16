@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilham Safiya — Perunding Pendaftaran Syarikat &amp; Lesen</title>
+<meta name="description" content="Ilham Safiya membantu kontraktor dan usahawan Malaysia mendaftar syarikat Sdn Bhd, lesen CIDB G1–G7, sijil MOF, Kad Hijau, vendor TNB, permit SPAN, ISO serta perkhidmatan perakaunan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kertas: #f6f5ef;      /* paper */
+    --kertas-2: #edece3;    /* darker paper */
+    --dakwat: #1a241f;      /* ink */
+    --hijau: #14532d;       /* official green (CIDB world) */
+    --hijau-muda: #2f7d4f;
+    --merah-cop: #b3372a;   /* rubber-stamp red */
+    --garis: #c9c7ba;       /* rule lines */
+
+    --display: "Zilla Slab", serif;
+    --body: "Public Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--kertas);
+    color: var(--dakwat);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--hijau); color: var(--kertas); }
+
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  :focus-visible {
+    outline: 3px solid var(--merah-cop);
+    outline-offset: 3px;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Letterhead top strip ---------- */
+  .letterhead {
+    background: var(--hijau);
+    color: var(--kertas);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+  .letterhead .wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .letterhead a { color: inherit; text-decoration: none; }
+  .letterhead a:hover { text-decoration: underline; }
+  .letterhead .lh-right { display: flex; gap: 20px; }
+  @media (max-width: 640px) {
+    .letterhead .lh-right span.hours { display: none; }
+  }
+
+  /* ---------- Nav ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--kertas) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--dakwat);
+  }
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .brand {
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .brand .mark {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.45rem;
+    letter-spacing: 0.01em;
+    color: var(--hijau);
+  }
+  .brand .mark span { color: var(--merah-cop); }
+  .brand .co {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dakwat);
+    opacity: 0.7;
+  }
+  nav.desktop ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  nav.desktop a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  nav.desktop a:hover { border-bottom-color: var(--merah-cop); }
+  .nav-cta {
+    background: var(--hijau);
+    color: var(--kertas) !important;
+    padding: 9px 18px !important;
+    border-bottom: none !important;
+    font-family: var(--mono);
+    font-size: 0.78rem !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .nav-cta:hover { background: var(--merah-cop); }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: 2px solid var(--dakwat);
+    padding: 8px 10px;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--dakwat);
+  }
+  .mobile-menu {
+    display: none;
+    border-top: 1px solid var(--garis);
+    background: var(--kertas);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu ul { list-style: none; padding: 12px 24px 20px; }
+  .mobile-menu a {
+    display: block;
+    padding: 12px 0;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid var(--garis);
+  }
+  @media (max-width: 860px) {
+    nav.desktop { display: none; }
+    .hamburger { display: block; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { border-bottom: 2px solid var(--dakwat); overflow: hidden; }
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+    align-items: center;
+    padding-top: 72px;
+    padding-bottom: 80px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--hijau);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    background: var(--merah-cop);
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.3rem, 5.2vw, 3.8rem);
+    line-height: 1.08;
+    margin-bottom: 22px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--hijau);
+  }
+  .hero p.lede {
+    font-size: 1.05rem;
+    max-width: 34rem;
+    margin-bottom: 32px;
+    color: color-mix(in srgb, var(--dakwat) 82%, transparent);
+  }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 15px 28px;
+    border: 2px solid var(--dakwat);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+  .btn.primary {
+    background: var(--hijau);
+    border-color: var(--hijau);
+    color: var(--kertas);
+    box-shadow: 4px 4px 0 var(--dakwat);
+  }
+  .btn.primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--dakwat); }
+  .btn.ghost { background: transparent; color: var(--dakwat); }
+  .btn.ghost:hover { background: var(--dakwat); color: var(--kertas); }
+
+  /* The signature: rubber-stamp LULUS badge */
+  .stamp-zone { display: flex; justify-content: center; }
+  .stamp {
+    --stamp: var(--merah-cop);
+    width: min(300px, 70vw);
+    aspect-ratio: 1;
+    border: 5px double var(--stamp);
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    color: var(--stamp);
+    transform: rotate(-12deg);
+    position: relative;
+    opacity: 0.88;
+  }
+  .stamp .lulus {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6vw, 3.6rem);
+    letter-spacing: 0.14em;
+    line-height: 1;
+    border-top: 3px solid var(--stamp);
+    border-bottom: 3px solid var(--stamp);
+    padding: 10px 6px;
+  }
+  .stamp .kecil {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+  .stamp .atas {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .stamp { animation: stamp-in 0.55s cubic-bezier(0.2, 1.6, 0.4, 1) 0.35s both; }
+    @keyframes stamp-in {
+      from { transform: rotate(-12deg) scale(2.4); opacity: 0; }
+      to   { transform: rotate(-12deg) scale(1);   opacity: 1; }
+    }
+  }
+  @media (max-width: 860px) {
+    .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 56px; }
+    .stamp-zone { order: -1; }
+    .stamp { width: min(210px, 60vw); }
+  }
+
+  /* ---------- Trust strip: agencies handled ---------- */
+  .agensi {
+    background: var(--kertas-2);
+    border-bottom: 2px solid var(--dakwat);
+  }
+  .agensi .wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px 28px;
+    flex-wrap: wrap;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .agensi .label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--merah-cop);
+  }
+  .agensi ul {
+    display: flex;
+    gap: 10px 26px;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+  .agensi li {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--hijau);
+  }
+
+  /* ---------- Section scaffolding: form "Bahagian" headers ---------- */
+  section.bhg { border-bottom: 2px solid var(--dakwat); }
+  .bhg-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding-top: 64px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .bhg-kod {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kertas);
+    background: var(--hijau);
+    padding: 5px 12px;
+    white-space: nowrap;
+  }
+  .bhg-head h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+    line-height: 1.15;
+  }
+  .bhg-note {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: color-mix(in srgb, var(--dakwat) 75%, transparent);
+    margin-left: auto;
+  }
+  @media (max-width: 640px) { .bhg-note { display: none; } }
+
+  /* ---------- Services: checklist form rows ---------- */
+  .senarai {
+    border: 2px solid var(--dakwat);
+    background: #fbfaf6;
+    margin-bottom: 72px;
+  }
+  .khidmat {
+    display: grid;
+    grid-template-columns: 64px 150px 1fr;
+    border-bottom: 1px solid var(--garis);
+  }
+  .khidmat:last-child { border-bottom: none; }
+  .khidmat .kotak {
+    display: grid;
+    place-content: center;
+    border-right: 1px solid var(--garis);
+    padding: 20px 0;
+  }
+  .kotak .tanda {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--dakwat);
+    display: grid;
+    place-content: center;
+    color: var(--merah-cop);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+  .khidmat .kod {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--hijau);
+    border-right: 1px solid var(--garis);
+    padding: 22px 18px;
+  }
+  .khidmat .isi { padding: 20px 24px; }
+  .khidmat .isi h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+  .khidmat .isi p {
+    font-size: 0.92rem;
+    color: color-mix(in srgb, var(--dakwat) 80%, transparent);
+    max-width: 46rem;
+  }
+  @media (max-width: 720px) {
+    .khidmat { grid-template-columns: 52px 1fr; }
+    .khidmat .kod {
+      grid-column: 2;
+      border-right: none;
+      padding: 16px 20px 0;
+    }
+    .khidmat .isi { grid-column: 2; padding-top: 4px; }
+    .khidmat .kotak { grid-row: span 2; }
+  }
+
+  /* ---------- Why us ---------- */
+  .sebab-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--garis);
+    border: 2px solid var(--dakwat);
+    margin-bottom: 72px;
+  }
+  .sebab {
+    background: var(--kertas);
+    padding: 28px 26px;
+  }
+  .sebab .ikon {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--merah-cop);
+    margin-bottom: 12px;
+  }
+  .sebab h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+  .sebab p {
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--dakwat) 78%, transparent);
+  }
+  @media (max-width: 900px) { .sebab-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .sebab-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Process ---------- */
+  .proses-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-bottom: 72px;
+  }
+  .langkah { position: relative; padding-top: 18px; }
+  .langkah .no {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--kertas);
+    background: var(--dakwat);
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .langkah h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+  .langkah p {
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--dakwat) 78%, transparent);
+  }
+  .langkah::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    border-top: 2px dashed var(--garis);
+  }
+  .langkah:last-child .no { background: var(--merah-cop); }
+  @media (max-width: 860px) { .proses-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .proses-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Contact ---------- */
+  .hubungi-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    margin-bottom: 72px;
+  }
+  .h-butiran dl { display: grid; gap: 0; border: 2px solid var(--dakwat); background: #fbfaf6; }
+  .h-butiran .baris {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    border-bottom: 1px solid var(--garis);
+  }
+  .h-butiran .baris:last-child { border-bottom: none; }
+  .h-butiran dt {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 18px;
+    border-right: 1px solid var(--garis);
+    color: var(--hijau);
+  }
+  .h-butiran dd { padding: 14px 18px; font-size: 0.95rem; }
+  .h-butiran dd a { text-decoration-color: var(--merah-cop); }
+  .h-borang form { display: grid; gap: 14px; }
+  .h-borang label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--hijau);
+  }
+  .h-borang input,
+  .h-borang select,
+  .h-borang textarea {
+    width: 100%;
+    font-family: var(--body);
+    font-size: 0.95rem;
+    padding: 12px 14px;
+    border: 2px solid var(--dakwat);
+    background: #fbfaf6;
+    color: var(--dakwat);
+  }
+  .h-borang textarea { resize: vertical; min-height: 110px; }
+  .borang-status {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--hijau);
+    display: none;
+  }
+  .borang-status.show { display: block; }
+  @media (max-width: 860px) { .hubungi-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--dakwat);
+    color: var(--kertas);
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 26px;
+    padding-bottom: 26px;
+  }
+  footer .f-brand { font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .stamp { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="letterhead">
+  <div class="wrap">
+    <span>ILHAM SAFIYA &mdash; PERUNDING PENDAFTARAN &amp; LESEN</span>
+    <span class="lh-right">
+      <span class="hours">ISNIN&ndash;JUMAAT 9:00&ndash;18:00</span>
+      <a href="tel:+60000000000">TEL: 01X-XXX XXXX</a>
+    </span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap navbar">
+    <a class="brand" href="#utama">
+      <span class="mark">Ilham<span>Safiya</span></span>
+      <span class="co">Perunding Lesen</span>
+    </a>
+    <nav class="desktop" aria-label="Navigasi utama">
+      <ul>
+        <li><a href="#utama">Utama</a></li>
+        <li><a href="#perkhidmatan">Perkhidmatan</a></li>
+        <li><a href="#kenapa">Kenapa Kami</a></li>
+        <li><a href="#proses">Proses</a></li>
+        <li><a href="#hubungi">Hubungi</a></li>
+        <li><a class="nav-cta" href="https://wa.me/60000000000" target="_blank" rel="noopener">WhatsApp Kami</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">MENU</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#utama">Utama</a></li>
+      <li><a href="#perkhidmatan">Perkhidmatan</a></li>
+      <li><a href="#kenapa">Kenapa Kami</a></li>
+      <li><a href="#proses">Proses</a></li>
+      <li><a href="#hubungi">Hubungi</a></li>
+      <li><a href="https://wa.me/60000000000" target="_blank" rel="noopener">WhatsApp Kami</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="utama">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Borang IS-01 &middot; Permohonan Lesen</span>
+        <h1>Urusan lesen anda, <em>diluluskan</em> tanpa pening kepala.</h1>
+        <p class="lede">Ilham Safiya menguruskan pendaftaran syarikat Sdn Bhd, lesen CIDB G1&ndash;G7, sijil MOF dan taraf Bumiputera untuk kontraktor serta usahawan di seluruh Malaysia &mdash; dari borang pertama hingga sijil di tangan anda.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://wa.me/60000000000" target="_blank" rel="noopener">Konsultasi Percuma</a>
+          <a class="btn ghost" href="#perkhidmatan">Lihat Perkhidmatan</a>
+        </div>
+      </div>
+      <div class="stamp-zone" aria-hidden="true">
+        <div class="stamp">
+          <span class="atas">Ilham Safiya</span>
+          <span class="lulus">LULUS</span>
+          <span class="kecil">Permohonan Diterima</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="agensi" aria-label="Agensi yang kami uruskan">
+    <div class="wrap">
+      <span class="label">Kami berurusan dengan</span>
+      <ul>
+        <li>SSM</li>
+        <li>CIDB</li>
+        <li>MOF</li>
+        <li>TNB</li>
+        <li>SPAN</li>
+        <li>LHDN</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="bhg" id="perkhidmatan">
+    <div class="wrap">
+      <div class="bhg-head reveal">
+        <span class="bhg-kod">Bahagian A</span>
+        <h2>Perkhidmatan</h2>
+        <span class="bhg-note">Tandakan yang berkenaan</span>
+      </div>
+      <div class="senarai reveal">
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">CIDB G1&ndash;G7</div>
+          <div class="isi">
+            <h3>Pendaftaran Lesen CIDB</h3>
+            <p>Pendaftaran dan pembaharuan Sijil Perakuan Pendaftaran Kontraktor bagi semua gred, dari G1 hingga G7 &mdash; termasuk nasihat gred yang sesuai dengan modal dan projek anda.</p>
+          </div>
+        </div>
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">MOF / ePEROLEHAN</div>
+          <div class="isi">
+            <h3>Sijil Kementerian Kewangan</h3>
+            <p>Pendaftaran sijil MOF supaya syarikat anda layak menyertai perolehan dan tender kerajaan, termasuk permohonan taraf Bumiputera.</p>
+          </div>
+        </div>
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">SSM SDN BHD</div>
+          <div class="isi">
+            <h3>Penubuhan Syarikat Sdn Bhd</h3>
+            <p>Pendaftaran syarikat baharu dengan SSM di bawah Akta Syarikat 2016 &mdash; carian nama, dokumen penubuhan dan khidmat setiausaha syarikat.</p>
+          </div>
+        </div>
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">KAD HIJAU</div>
+          <div class="isi">
+            <h3>Kad Hijau CIDB</h3>
+            <p>Pendaftaran Kad Kesihatan &amp; Keselamatan Induksi (Kad Hijau) untuk personel binaan anda, syarat wajib untuk memasuki tapak pembinaan.</p>
+          </div>
+        </div>
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">VENDOR TNB</div>
+          <div class="isi">
+            <h3>Pendaftaran Vendor TNB</h3>
+            <p>Permohonan pendaftaran sebagai vendor Tenaga Nasional Berhad supaya syarikat anda layak menyertai kerja dan bekalan TNB.</p>
+          </div>
+        </div>
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">PERMIT SPAN</div>
+          <div class="isi">
+            <h3>Permit SPAN</h3>
+            <p>Permohonan permit Suruhanjaya Perkhidmatan Air Negara bagi kontraktor yang menjalankan kerja perkhidmatan air dan pembetungan.</p>
+          </div>
+        </div>
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">ISO</div>
+          <div class="isi">
+            <h3>Persijilan ISO</h3>
+            <p>Khidmat nasihat dan pengurusan persijilan ISO untuk menaikkan kelayakan tender dan keyakinan pelanggan terhadap syarikat anda.</p>
+          </div>
+        </div>
+        <div class="khidmat">
+          <div class="kotak"><span class="tanda" aria-hidden="true">&#10003;</span></div>
+          <div class="kod">AKAUN &amp; CUKAI</div>
+          <div class="isi">
+            <h3>Perakaunan &amp; Percukaian</h3>
+            <p>Penyediaan akaun syarikat, penyata kewangan dan pemfailan cukai individu serta korporat &mdash; supaya rekod anda sentiasa teratur untuk pembaharuan lesen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bhg" id="kenapa">
+    <div class="wrap">
+      <div class="bhg-head reveal">
+        <span class="bhg-kod">Bahagian B</span>
+        <h2>Kenapa Ilham Safiya</h2>
+        <span class="bhg-note">Perakuan pemohon</span>
+      </div>
+      <div class="sebab-grid reveal">
+        <div class="sebab">
+          <div class="ikon">Semakan Percuma</div>
+          <h3>Konsultasi tanpa caj</h3>
+          <p>Kami semak dokumen dan kelayakan anda dahulu, secara percuma, sebelum sebarang bayaran dibincangkan.</p>
+        </div>
+        <div class="sebab">
+          <div class="ikon">Harga Telus</div>
+          <h3>Sebut harga jelas</h3>
+          <p>Satu sebut harga penuh di awal urusan. Tiada caj tersembunyi yang muncul di tengah jalan.</p>
+        </div>
+        <div class="sebab">
+          <div class="ikon">Iring Hingga Lulus</div>
+          <h3>Sokongan sampai sijil</h3>
+          <p>Kami pantau status permohonan dan jawab kuiri agensi bagi pihak anda sehingga lesen diluluskan.</p>
+        </div>
+        <div class="sebab">
+          <div class="ikon">Faham Selok-Belok</div>
+          <h3>Pasukan berpengalaman</h3>
+          <p>Kami berurusan dengan CIDB, MOF, SSM dan agensi berkaitan setiap hari &mdash; kami tahu apa yang pegawai cari.</p>
+        </div>
+        <div class="sebab">
+          <div class="ikon">Jimat Masa</div>
+          <h3>Anda fokus pada kerja</h3>
+          <p>Biar kami yang beratur, isi borang dan susul semula. Anda teruskan projek dan perniagaan anda.</p>
+        </div>
+        <div class="sebab">
+          <div class="ikon">Urusan Sah</div>
+          <h3>Saluran rasmi sepenuhnya</h3>
+          <p>Setiap permohonan dibuat melalui saluran rasmi agensi. Tiada jalan pintas yang membahayakan lesen anda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bhg" id="proses">
+    <div class="wrap">
+      <div class="bhg-head reveal">
+        <span class="bhg-kod">Bahagian C</span>
+        <h2>Proses Permohonan</h2>
+        <span class="bhg-note">Untuk kegunaan pejabat</span>
+      </div>
+      <div class="proses-grid reveal">
+        <div class="langkah">
+          <span class="no">LANGKAH 1</span>
+          <h3>Hubungi kami</h3>
+          <p>WhatsApp atau telefon untuk konsultasi percuma. Kami kenal pasti lesen dan gred yang anda perlukan.</p>
+        </div>
+        <div class="langkah">
+          <span class="no">LANGKAH 2</span>
+          <h3>Sedia dokumen</h3>
+          <p>Kami beri senarai semak dokumen dan semak setiap satu supaya permohonan tidak ditolak kerana kecuaian kecil.</p>
+        </div>
+        <div class="langkah">
+          <span class="no">LANGKAH 3</span>
+          <h3>Kami mohon</h3>
+          <p>Permohonan difailkan kepada agensi berkaitan. Anda terima kemas kini status di setiap peringkat.</p>
+        </div>
+        <div class="langkah">
+          <span class="no">LANGKAH 4</span>
+          <h3>Sijil lulus</h3>
+          <p>Lesen atau sijil diserahkan kepada anda &mdash; dan kami ingatkan anda awal sebelum tarikh pembaharuan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bhg" id="hubungi">
+    <div class="wrap">
+      <div class="bhg-head reveal">
+        <span class="bhg-kod">Bahagian D</span>
+        <h2>Hubungi Kami</h2>
+        <span class="bhg-note">Maklumat pegawai</span>
+      </div>
+      <div class="hubungi-grid reveal">
+        <div class="h-butiran">
+          <dl>
+            <div class="baris">
+              <dt>Telefon</dt>
+              <dd><a href="tel:+60000000000">01X-XXX XXXX</a></dd>
+            </div>
+            <div class="baris">
+              <dt>WhatsApp</dt>
+              <dd><a href="https://wa.me/60000000000" target="_blank" rel="noopener">Klik untuk WhatsApp</a></dd>
+            </div>
+            <div class="baris">
+              <dt>E-mel</dt>
+              <dd><a href="mailto:info@ilhamsafiya.com">info@ilhamsafiya.com</a></dd>
+            </div>
+            <div class="baris">
+              <dt>Alamat</dt>
+              <dd>No. XX, Jalan XXXX, XXXXX Selangor, Malaysia</dd>
+            </div>
+            <div class="baris">
+              <dt>Waktu</dt>
+              <dd>Isnin&ndash;Jumaat, 9:00 pagi &ndash; 6:00 petang</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="h-borang">
+          <form id="borangHubungi" novalidate>
+            <div>
+              <label for="f-nama">Nama</label>
+              <input id="f-nama" name="nama" type="text" autocomplete="name" required>
+            </div>
+            <div>
+              <label for="f-tel">No. telefon</label>
+              <input id="f-tel" name="telefon" type="tel" autocomplete="tel" required>
+            </div>
+            <div>
+              <label for="f-khidmat">Perkhidmatan diperlukan</label>
+              <select id="f-khidmat" name="perkhidmatan">
+                <option>Lesen CIDB G1&ndash;G7</option>
+                <option>Sijil MOF</option>
+                <option>Penubuhan Sdn Bhd</option>
+                <option>Kad Hijau CIDB</option>
+                <option>Vendor TNB / Permit SPAN</option>
+                <option>Persijilan ISO</option>
+                <option>Perakaunan &amp; Percukaian</option>
+                <option>Lain-lain / tidak pasti</option>
+              </select>
+            </div>
+            <div>
+              <label for="f-mesej">Mesej</label>
+              <textarea id="f-mesej" name="mesej"></textarea>
+            </div>
+            <button class="btn primary" type="submit">Hantar Pertanyaan</button>
+            <p class="borang-status" id="borangStatus" role="status">Terima kasih &mdash; kami akan hubungi anda secepat mungkin.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="f-brand">Ilham Safiya</span>
+    <p>&copy; 2026 ILHAM SAFIYA &middot; PERUNDING PENDAFTARAN SYARIKAT &amp; LESEN &middot; MALAYSIA</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  (function () {
+    var btn = document.getElementById("hamburger");
+    var menu = document.getElementById("mobileMenu");
+    btn.addEventListener("click", function () {
+      var open = menu.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "TUTUP" : "MENU";
+    });
+    menu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        menu.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+        btn.textContent = "MENU";
+      });
+    });
+  })();
+
+  // Scroll reveal
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var items = document.querySelectorAll(".reveal");
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+  // Contact form is front-end only (no backend)
+  (function () {
+    var form = document.getElementById("borangHubungi");
+    var status = document.getElementById("borangStatus");
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!form.reportValidity()) return;
+      status.classList.add("show");
+      form.reset();
+    });
+  })();
+</script>
+</body>
+</html>
