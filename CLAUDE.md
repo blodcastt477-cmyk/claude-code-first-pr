@@ -12,21 +12,26 @@ ground for the GitHub + Claude Code PR workflow (clone, branch, commit, push, PR
 - `optical.html` — D'EYEWEAR, an independent optician shop in SS2, Petaling Jaya
   (real business details: address, phone 03-7877 9576, info@deyewear.com).
   Frame prices on this page are placeholders, not confirmed by the owner.
+  **Note:** the canonical copy of this site now lives in the separate repo
+  `blodcastt477-cmyk/deyewear` (deployed to https://deyewear.store); the copy
+  here is a legacy duplicate — edit the other repo for D'EYEWEAR changes.
 
 Site work happens on feature branches (currently `feature/koperasi-website`)
 with PRs into `main`. `main` contains only the README.
 
 ## Deployment
 
-Both pages are live on GitHub Pages, served from the **`feature/koperasi-website`
-branch root** (not `main`):
+This repo's GitHub Pages site is served from the **`feature/koperasi-website`
+branch root** (not `main`) at the custom domain **https://kubintang.com** (the
+committed `CNAME` file). Do not change or remove `CNAME` — one Pages site
+supports exactly one custom domain.
 
-- https://blodcastt477-cmyk.github.io/claude-code-first-pr/ (KUBINTANG)
-- https://blodcastt477-cmyk.github.io/claude-code-first-pr/optical.html (D'EYEWEAR)
+D'EYEWEAR is deployed separately: repo `blodcastt477-cmyk/deyewear` (branch
+`main`, its own `CNAME`) serves **https://deyewear.store**.
 
-Pushing to `feature/koperasi-website` triggers a Pages redeploy (takes a minute
-or two). First-time Pages deploys have failed transiently before; re-request a
-build with `gh api -X POST repos/blodcastt477-cmyk/claude-code-first-pr/pages/builds`.
+Pushing to the published branch triggers a Pages redeploy (takes a minute or
+two). First-time Pages deploys have failed transiently before; re-request a
+build with `gh api -X POST repos/blodcastt477-cmyk/<repo>/pages/builds`.
 
 ## Running Locally
 
