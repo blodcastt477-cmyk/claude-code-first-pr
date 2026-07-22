@@ -7,6 +7,8 @@
 <meta name="description" content="Koperasi Orkid Global Berhad — a member-owned Malaysian cooperative cultivating sustainable growth across trading, property, agriculture, wellness and member investment.">
 <meta property="og:title" content="Koperasi Orkid Global Berhad">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="images/orkid-mark.png">
+<link rel="apple-touch-icon" href="images/orkid-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -110,7 +112,7 @@
   }
   nav.topnav.scrolled{ padding:.7rem 5%; background:rgba(21,10,24,.96); box-shadow:0 12px 34px -20px rgba(0,0,0,.7); }
   .brand{ font-family:var(--display); font-size:1.35rem; letter-spacing:.06em; color:var(--blush); display:flex; align-items:center; gap:.7rem; }
-  .brand .mark{ width:34px; height:34px; flex:none; }
+  .brand .mark{ height:38px; width:auto; flex:none; filter:drop-shadow(0 2px 8px rgba(0,0,0,.35)); }
   .brand b{ font-weight:600; color:var(--orchid-bright); }
   nav.topnav ul{ display:flex; gap:2.2rem; list-style:none; }
   nav.topnav ul li a{
@@ -156,12 +158,12 @@
       radial-gradient(ellipse at 85% 15%, rgba(240,155,209,.10), transparent 50%);
   }
   .hero-orchid{
-    position:absolute; z-index:0; pointer-events:none; opacity:.5;
-    width:min(58vw,640px); top:50%; left:50%; transform:translate(-50%,-52%);
-    filter:drop-shadow(0 0 60px rgba(194,78,147,.25));
+    position:absolute; z-index:0; pointer-events:none; opacity:.28;
+    width:min(52vw,560px); top:50%; left:50%; transform:translate(-50%,-52%);
+    filter:drop-shadow(0 0 70px rgba(194,78,147,.35));
     animation:bloom 1.6s cubic-bezier(.19,1,.22,1) both .2s;
   }
-  @keyframes bloom{ from{opacity:0; transform:translate(-50%,-52%) scale(.86) rotate(-4deg);} to{opacity:.5; transform:translate(-50%,-52%) scale(1) rotate(0);} }
+  @keyframes bloom{ from{opacity:0; transform:translate(-50%,-52%) scale(.86) rotate(-4deg);} to{opacity:.28; transform:translate(-50%,-52%) scale(1) rotate(0);} }
   .hero-inner{
     position:relative; z-index:2; flex:1;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -352,16 +354,8 @@
 
 <!-- ================= NAV ================= -->
 <nav class="topnav" aria-label="Main navigation">
-  <a class="brand" href="#home" aria-label="Koperasi Orkid Global home">
-    <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <g stroke="#F09BD1" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M24 26c-6-3-11 1-11 6 5 1 9-1 11-6z"/>
-        <path d="M24 26c6-3 11 1 11 6-5 1-9-1-11-6z"/>
-        <path d="M24 26c-3-6 0-12 4-14 2 5 0 10-4 14z"/>
-        <path d="M24 26c3-6 0-12-4-14-2 5 0 10 4 14z"/>
-        <circle cx="24" cy="27" r="2.4" fill="#C24E93" stroke="none"/>
-      </g>
-    </svg>
+  <a class="brand" href="#home" aria-label="Koperasi Orkid Global Berhad home">
+    <img class="mark" src="images/orkid-mark.png" alt="" width="40" height="38">
     <span>ORKID <b>GLOBAL</b></span>
   </a>
   <ul>
@@ -389,18 +383,7 @@
 <!-- ================= HERO ================= -->
 <header class="hero" id="home">
   <div class="hero-glow" aria-hidden="true"></div>
-  <svg class="hero-orchid" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-    <g stroke="#C24E93" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round" opacity="0.9">
-      <path d="M100 108c-28-14-50 4-50 26 24 5 42-5 50-26z"/>
-      <path d="M100 108c28-14 50 4 50 26-24 5-42-5-50-26z"/>
-      <path d="M100 108c-14-28 2-52 20-62 9 24-2 46-20 62z"/>
-      <path d="M100 108c14-28-2-52-20-62-9 24 2 46 20 62z"/>
-      <path d="M100 108c-9-20-30-24-44-18 6 18 26 26 44 18z"/>
-      <path d="M100 108c9-20 30-24 44-18-6 18-26 26-44 18z"/>
-    </g>
-    <circle cx="100" cy="110" r="7" fill="#F09BD1"/>
-    <circle cx="100" cy="110" r="14" stroke="#B98CE0" stroke-width="1"/>
-  </svg>
+  <img class="hero-orchid" src="images/orkid-mark.png" alt="" aria-hidden="true">
 
   <div class="hero-inner">
     <p class="eyebrow">Koperasi Orkid Global Berhad &mdash; Malaysia</p>
