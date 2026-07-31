@@ -1590,7 +1590,43 @@
     sections.forEach(s => nio.observe(s));
   }
 
-  /* ---------- Contact form (front-end only) ---------- */
+  /* ---------- Form delivery ----------
+     Submissions POST to Formspree, which forwards them to the cooperative's
+     inbox. Replace FORM_ID with the id from the Formspree dashboard. */
+  const FORM_ID = 'meeywzwd';
+  const FORM_ENDPOINT = 'https://formspree.io/f/' + FORM_ID;
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  async function sendForm(form, note, payload, successMsg){
+    const btn = form.querySelector('button[type="submit"]');
+    const label = btn.textContent;
+    btn.disabled = true;
+    btn.style.opacity = '.6';
+    btn.style.cursor = 'wait';
+    btn.textContent = 'Sending…';
+    note.textContent = '';
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      note.textContent = successMsg;
+      form.reset();
+      return true;
+    } catch(err){
+      note.textContent = 'Sorry — that didn’t send. Please email kubintang101@gmail.com or call (+6) 014-267 1056.';
+      return false;
+    } finally {
+      btn.disabled = false;
+      btn.style.opacity = '';
+      btn.style.cursor = '';
+      btn.textContent = label;
+    }
+  }
+
+  /* ---------- Contact form ---------- */
   const form = document.getElementById('contactForm');
   const note = document.getElementById('formNote');
   form.addEventListener('submit', e => {
@@ -1603,21 +1639,25 @@
       return;
     }
     const email = document.getElementById('email').value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    if(!EMAIL_RE.test(email)){
       note.textContent = 'Please enter a valid email address.';
       document.getElementById('email').focus();
       return;
     }
-    note.textContent = 'Thank you — your message has been received.';
-    form.reset();
+    const val = id => document.getElementById(id).value.trim();
+    sendForm(form, note, {
+      _subject: 'Website Enquiry — ' + val('firstName') + ' ' + val('lastName'),
+      email: email,
+      'First Name': val('firstName'),
+      'Last Name': val('lastName'),
+      'Phone': val('phone'),
+      'Message': val('message')
+    }, 'Thank you — your message has been sent.');
   });
 
-  /* ---------- Membership form ----------
-     No backend on this host, so a validated application is handed off to the
-     visitor's mail client addressed to the cooperative. */
+  /* ---------- Membership form ---------- */
   const memForm = document.getElementById('memberForm');
   const memNote = document.getElementById('memberNote');
-  const MEMBER_EMAIL = 'kubintang101@gmail.com';
   const memFields = [
     ['memName','Full Name', true],
     ['memIC','IC / NRIC Number', true],
@@ -1644,7 +1684,7 @@
       return;
     }
     const memEmail = document.getElementById('memEmail').value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(memEmail)){
+    if(!EMAIL_RE.test(memEmail)){
       memNote.textContent = 'Please enter a valid email address.';
       document.getElementById('memEmail').focus();
       return;
@@ -1654,16 +1694,18 @@
       document.getElementById('memDeclare').focus();
       return;
     }
-    const lines = memFields
-      .map(f => { const v = document.getElementById(f[0]).value.trim(); return v ? f[1] + ': ' + v : null; })
-      .filter(Boolean);
-    lines.push('', 'Declaration: confirmed (18+, information accurate)', 'Data consent: given');
-    const subject = 'Membership Application — ' + document.getElementById('memName').value.trim();
-    const href = 'mailto:' + MEMBER_EMAIL +
-      '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(lines.join('\n'));
-    memNote.textContent = 'Opening your email app to send the application…';
-    window.location.href = href;
+    const payload = {
+      _subject: 'Membership Application — ' + document.getElementById('memName').value.trim(),
+      email: memEmail
+    };
+    memFields.forEach(f => {
+      const v = document.getElementById(f[0]).value.trim();
+      if(v) payload[f[1]] = v;
+    });
+    payload['Declaration'] = 'Confirmed — 18 or above, information accurate';
+    payload['Data Consent'] = 'Given';
+    sendForm(memForm, memNote, payload,
+      'Thank you — your membership application has been submitted. Our team will be in touch.');
   });
 
   /* ---------- Footer year ---------- */
