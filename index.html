@@ -475,6 +475,56 @@
   .service h4{ font-family:'Jost',sans-serif; font-weight:500; font-size:1rem; color:var(--gold-bright); letter-spacing:.02em; }
   .service p{ margin-top:.6rem; font-size:.92rem; line-height:1.6; color:rgba(243,238,227,0.66); }
 
+  /* ---------- MEMBERSHIP ---------- */
+  .membership{ background:var(--charcoal); color:var(--bone); position:relative; overflow:hidden; border-top:1px solid var(--line); }
+  .membership::before{
+    content:""; position:absolute; top:-35%; right:-12%; width:55vw; height:55vw; border-radius:50%;
+    background:radial-gradient(circle, rgba(201,154,62,0.11), transparent 65%); pointer-events:none;
+  }
+  .mem-grid{ position:relative; z-index:1; display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(2.5rem,6vw,5.5rem); align-items:start; }
+  .mem-intro h2{ font-size:clamp(2.2rem,4.6vw,3.8rem); line-height:1.06; margin-top:1.3rem; }
+  .mem-intro h2 .hl{ color:var(--gold-bright); }
+  .mem-intro > p{ margin-top:1.5rem; font-size:1.05rem; line-height:1.75; color:rgba(243,238,227,0.75); max-width:48ch; }
+  .mem-benefits{ margin-top:2.4rem; display:grid; gap:1.3rem; }
+  .benefit{ display:flex; gap:1rem; align-items:flex-start; }
+  .benefit svg{ width:20px; height:20px; stroke:var(--gold); flex:none; margin-top:.2rem; }
+  .benefit p{ color:rgba(243,238,227,0.7); line-height:1.6; font-size:.95rem; }
+  .benefit p b{ font-weight:500; color:var(--bone); display:block; font-size:1rem; margin-bottom:.15rem; }
+  .mem-form{
+    background:rgba(10,8,7,0.5); border:1px solid var(--line);
+    padding:clamp(1.5rem,3.5vw,2.6rem);
+  }
+  .mem-form-title{ font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); }
+  .mem-form-sub{ font-size:.92rem; color:rgba(243,238,227,0.55); margin-top:.5rem; margin-bottom:1.9rem; line-height:1.55; }
+  .membership .field label{ color:rgba(243,238,227,0.62); }
+  .membership .field input,
+  .membership .field select,
+  .membership .field textarea{
+    font-family:'Jost',sans-serif; font-size:1rem; color:var(--bone);
+    background:transparent; border:none; border-bottom:1px solid rgba(243,238,227,0.28);
+    padding:.7rem 0; border-radius:0; transition:border-color .25s;
+  }
+  .membership .field select{ cursor:pointer; }
+  .membership .field select option{ background:var(--charcoal); color:var(--bone); }
+  .membership .field input:focus,
+  .membership .field select:focus,
+  .membership .field textarea:focus{ outline:none; border-bottom:2px solid var(--gold); }
+  .membership .field textarea{ resize:vertical; min-height:96px; }
+  .fieldset-legend{
+    grid-column:1 / -1; margin-top:.8rem; padding-top:1.4rem; border-top:1px solid rgba(243,238,227,0.12);
+    font-family:'IBM Plex Mono',monospace; font-size:0.64rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-deep);
+  }
+  .fieldset-legend:first-child{ margin-top:0; padding-top:0; border-top:none; }
+  .check{ grid-column:1 / -1; display:flex; gap:.85rem; align-items:flex-start; }
+  .check input[type="checkbox"]{
+    width:18px; height:18px; accent-color:var(--gold); cursor:pointer; flex:none; margin-top:.2rem;
+    border-bottom:none; padding:0;
+  }
+  .check label{ font-size:.88rem; color:rgba(243,238,227,0.68); line-height:1.55; cursor:pointer; letter-spacing:0; text-transform:none; font-family:'Jost',sans-serif; }
+  .membership .form-note{ color:var(--gold-bright); }
+  .btn-member{ background:var(--gold); color:var(--obsidian); border-color:var(--gold); }
+  .btn-member:hover{ background:var(--gold-bright); border-color:var(--gold-bright); }
+
   /* ---------- SERVICES (svc-section; .services is the divisions' inner grid) ---------- */
   .svc-section{ background:var(--bone); color:var(--ink); position:relative; overflow:hidden; }
   .svc-section .ghost{
@@ -574,6 +624,9 @@
   .foot-bar a:hover{ color:var(--gold-bright); }
 
   /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1180px){
+    nav.topnav ul{ gap:1.5rem; }
+  }
   @media (max-width:1024px){
     .sector-grid{ grid-template-columns:repeat(2,1fr); }
     .board-grid{ grid-template-columns:repeat(2,1fr); }
@@ -585,7 +638,8 @@
     .mobile-menu, .menu-backdrop{ display:flex; }
     .menu-backdrop{ display:block; visibility:hidden; }
     .menu-backdrop.open{ visibility:visible; }
-    .about-grid, .chair-grid, .contact-grid, .why-grid{ grid-template-columns:1fr; }
+    .about-grid, .chair-grid, .contact-grid, .why-grid, .mem-grid{ grid-template-columns:1fr; }
+    .mem-form form{ grid-template-columns:1fr 1fr; }
     .chair-figure{ max-width:420px; }
     .services{ grid-template-columns:1fr; }
     .div-media{ aspect-ratio:16/9; }
@@ -598,6 +652,7 @@
     .board-grid{ grid-template-columns:1fr; }
     .sector-grid{ grid-template-columns:1fr; }
     .svc-grid{ grid-template-columns:1fr; }
+    .mem-form form{ grid-template-columns:1fr; }
     .stats{ grid-template-columns:1fr; }
     .division:nth-child(n){ top:84px; }
   }
@@ -619,6 +674,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#board">Board of Directors</a></li>
     <li><a href="#business">Our Business</a></li>
+    <li><a href="#membership">Membership</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -631,6 +687,7 @@
   <li><a href="#about">About</a></li>
   <li><a href="#board">Board of Directors</a></li>
   <li><a href="#business">Our Business</a></li>
+  <li><a href="#membership">Membership</a></li>
   <li><a href="#services">Services</a></li>
   <li><a href="#contact">Contact</a></li>
 </ul>
@@ -971,6 +1028,157 @@
       </div>
     </article>
 
+  </div>
+</section>
+
+<!-- ================= MEMBERSHIP ================= -->
+<section class="membership section-pad" id="membership">
+  <div class="wrap">
+    <div class="mem-grid">
+      <div class="mem-intro">
+        <p class="eyebrow reveal">Become A Member</p>
+        <h2 data-split>Join the <span class="hl">cooperative.</span></h2>
+        <p class="reveal" data-delay="1">Membership in Koperasi Usahawan Bukit Bintang Berhad opens the door to shared ownership, business opportunities, and a network of entrepreneurs building lasting value together.</p>
+        <div class="mem-benefits">
+          <div class="benefit reveal" data-delay="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.9L21 9.2l-5.2 4.4L17.6 21 12 17l-5.6 4 1.8-7.4L3 9.2l6.6-.3L12 2z"/></svg>
+            <p><b>Shared Ownership</b>Members are part-owners of the cooperative, with a stake in its long-term growth and dividends.</p>
+          </div>
+          <div class="benefit reveal" data-delay="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg>
+            <p><b>Business Network</b>Connect with fellow entrepreneurs, suppliers, and partners across our seven industry sectors.</p>
+          </div>
+          <div class="benefit reveal" data-delay="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg>
+            <p><b>Investment Access</b>Participate in cooperative ventures, property projects, and investment opportunities as they arise.</p>
+          </div>
+          <div class="benefit reveal" data-delay="3">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3 8-10V5l-8-3-8 3v7c0 7 8 10 8 10zM9 12l2 2 4-4"/></svg>
+            <p><b>Support &amp; Guidance</b>Priority assistance with licensing, registration, and compliance through our services division.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mem-form reveal" data-reveal="right" data-delay="1">
+        <div class="mem-form-title">Membership Application</div>
+        <p class="mem-form-sub">Open to Malaysian citizens aged 18 and above. Complete the form below and our team will contact you with the next steps.</p>
+        <form id="memberForm" novalidate>
+
+          <div class="fieldset-legend">Personal Details</div>
+          <div class="field full">
+            <label for="memName">Full Name (as per IC)</label>
+            <input type="text" id="memName" name="memName" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="memIC">IC / NRIC Number</label>
+            <input type="text" id="memIC" name="memIC" inputmode="numeric" placeholder="e.g. 900101-14-5555" required>
+          </div>
+          <div class="field">
+            <label for="memDob">Date of Birth</label>
+            <input type="date" id="memDob" name="memDob">
+          </div>
+          <div class="field">
+            <label for="memGender">Gender</label>
+            <select id="memGender" name="memGender">
+              <option value="">Select</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="memNationality">Nationality</label>
+            <select id="memNationality" name="memNationality">
+              <option>Malaysian</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="fieldset-legend">Contact Details</div>
+          <div class="field">
+            <label for="memEmail">Email</label>
+            <input type="email" id="memEmail" name="memEmail" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="memPhone">Phone</label>
+            <input type="tel" id="memPhone" name="memPhone" autocomplete="tel" required>
+          </div>
+          <div class="field full">
+            <label for="memAddress">Residential Address</label>
+            <input type="text" id="memAddress" name="memAddress" autocomplete="street-address" required>
+          </div>
+          <div class="field">
+            <label for="memCity">City &amp; Postcode</label>
+            <input type="text" id="memCity" name="memCity" autocomplete="address-level2">
+          </div>
+          <div class="field">
+            <label for="memState">State</label>
+            <select id="memState" name="memState">
+              <option value="">Select</option>
+              <option>Kuala Lumpur</option>
+              <option>Selangor</option>
+              <option>Putrajaya</option>
+              <option>Johor</option>
+              <option>Kedah</option>
+              <option>Kelantan</option>
+              <option>Labuan</option>
+              <option>Melaka</option>
+              <option>Negeri Sembilan</option>
+              <option>Pahang</option>
+              <option>Penang</option>
+              <option>Perak</option>
+              <option>Perlis</option>
+              <option>Sabah</option>
+              <option>Sarawak</option>
+              <option>Terengganu</option>
+            </select>
+          </div>
+
+          <div class="fieldset-legend">Employment &amp; Membership</div>
+          <div class="field">
+            <label for="memOccupation">Occupation</label>
+            <input type="text" id="memOccupation" name="memOccupation" autocomplete="organization-title">
+          </div>
+          <div class="field">
+            <label for="memEmployer">Employer / Business Name</label>
+            <input type="text" id="memEmployer" name="memEmployer" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="memShares">Share Capital Contribution (RM)</label>
+            <input type="text" id="memShares" name="memShares" inputmode="numeric" placeholder="e.g. 1000">
+          </div>
+          <div class="field">
+            <label for="memSource">How Did You Hear About Us</label>
+            <select id="memSource" name="memSource">
+              <option value="">Select</option>
+              <option>Existing member referral</option>
+              <option>Website</option>
+              <option>Social media</option>
+              <option>Event or seminar</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="memNotes">Additional Notes (optional)</label>
+            <textarea id="memNotes" name="memNotes"></textarea>
+          </div>
+
+          <div class="fieldset-legend">Declaration</div>
+          <div class="check">
+            <input type="checkbox" id="memDeclare" name="memDeclare">
+            <label for="memDeclare">I confirm that I am 18 years of age or above, and that the information provided is true and accurate to the best of my knowledge.</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="memConsent" name="memConsent">
+            <label for="memConsent">I consent to Koperasi Usahawan Bukit Bintang Berhad processing my personal data for the purpose of this membership application.</label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-member">Submit Application</button>
+            <span class="form-note" id="memberNote" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1367,7 +1575,7 @@
   })();
 
   /* ---------- Active nav link ---------- */
-  const sections = ['home','about','board','business','services','contact']
+  const sections = ['home','about','board','business','membership','services','contact']
     .map(id => document.getElementById(id)).filter(Boolean);
   const navLinks = document.querySelectorAll('nav.topnav ul a, .mobile-menu a');
   if('IntersectionObserver' in window){
@@ -1402,6 +1610,60 @@
     }
     note.textContent = 'Thank you — your message has been received.';
     form.reset();
+  });
+
+  /* ---------- Membership form ----------
+     No backend on this host, so a validated application is handed off to the
+     visitor's mail client addressed to the cooperative. */
+  const memForm = document.getElementById('memberForm');
+  const memNote = document.getElementById('memberNote');
+  const MEMBER_EMAIL = 'kubintang101@gmail.com';
+  const memFields = [
+    ['memName','Full Name', true],
+    ['memIC','IC / NRIC Number', true],
+    ['memDob','Date of Birth', false],
+    ['memGender','Gender', false],
+    ['memNationality','Nationality', false],
+    ['memEmail','Email', true],
+    ['memPhone','Phone', true],
+    ['memAddress','Residential Address', true],
+    ['memCity','City & Postcode', false],
+    ['memState','State', false],
+    ['memOccupation','Occupation', false],
+    ['memEmployer','Employer / Business', false],
+    ['memShares','Share Capital (RM)', false],
+    ['memSource','Heard About Us Via', false],
+    ['memNotes','Additional Notes', false]
+  ];
+  memForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const missing = memFields.filter(f => f[2] && !document.getElementById(f[0]).value.trim());
+    if(missing.length){
+      memNote.textContent = 'Please complete all required fields.';
+      document.getElementById(missing[0][0]).focus();
+      return;
+    }
+    const memEmail = document.getElementById('memEmail').value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(memEmail)){
+      memNote.textContent = 'Please enter a valid email address.';
+      document.getElementById('memEmail').focus();
+      return;
+    }
+    if(!document.getElementById('memDeclare').checked || !document.getElementById('memConsent').checked){
+      memNote.textContent = 'Please tick both declaration boxes to continue.';
+      document.getElementById('memDeclare').focus();
+      return;
+    }
+    const lines = memFields
+      .map(f => { const v = document.getElementById(f[0]).value.trim(); return v ? f[1] + ': ' + v : null; })
+      .filter(Boolean);
+    lines.push('', 'Declaration: confirmed (18+, information accurate)', 'Data consent: given');
+    const subject = 'Membership Application — ' + document.getElementById('memName').value.trim();
+    const href = 'mailto:' + MEMBER_EMAIL +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(lines.join('\n'));
+    memNote.textContent = 'Opening your email app to send the application…';
+    window.location.href = href;
   });
 
   /* ---------- Footer year ---------- */
