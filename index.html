@@ -551,11 +551,15 @@
   }
   .copy-acct:hover{ border-color:var(--gold); color:var(--gold-bright); background:rgba(201,154,62,0.08); }
   .copy-acct svg{ width:13px; height:13px; stroke:currentColor; }
-  .pay-qr{ flex:0 0 auto; text-align:center; }
-  .pay-qr img{ width:168px; height:auto; border:1px solid var(--line); background:#fff; }
+  .pay-qr{ flex:0 0 auto; text-align:center; max-width:100%; }
+  .pay-qr img{
+    width:198px; max-width:100%; height:auto; display:block;
+    background:#fff; padding:10px; border:1px solid var(--line);
+    box-shadow:0 10px 30px -16px rgba(0,0,0,0.75);
+  }
   .pay-qr figcaption{
     font-family:'IBM Plex Mono',monospace; font-size:0.58rem; letter-spacing:.14em;
-    text-transform:uppercase; color:rgba(243,238,227,0.45); margin-top:.6rem;
+    text-transform:uppercase; color:rgba(243,238,227,0.45); margin-top:.7rem;
   }
 
   /* receipt upload */
@@ -1136,8 +1140,9 @@
               </div>
             </div>
             <figure class="pay-qr">
-              <img src="images/payment-duitnow-qr.jpg" alt="DuitNow QR code for cooperative payments" loading="lazy">
-              <figcaption>DuitNow QR</figcaption>
+              <img src="images/payment-duitnow-qr.png" width="560" height="710"
+                   alt="DuitNow QR code for cooperative payments, payable to Koperasi Ebunda" loading="lazy">
+              <figcaption>Scan with any banking app</figcaption>
             </figure>
           </div>
         </div>
