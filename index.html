@@ -522,6 +522,62 @@
   }
   .check label{ font-size:.88rem; color:rgba(243,238,227,0.68); line-height:1.55; cursor:pointer; letter-spacing:0; text-transform:none; font-family:'Jost',sans-serif; }
   .membership .form-note{ color:var(--gold-bright); }
+
+  /* payment details */
+  .pay-block{
+    margin-top:2.6rem; border:1px solid var(--line); background:rgba(10,8,7,0.42);
+    padding:clamp(1.3rem,2.6vw,1.9rem);
+  }
+  .pay-title{
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--gold); margin-bottom:1.3rem;
+  }
+  .pay-inner{ display:flex; gap:clamp(1.2rem,3vw,2rem); align-items:flex-start; flex-wrap:wrap; }
+  .pay-details{ flex:1 1 210px; display:grid; gap:1.05rem; }
+  .pay-row .k{
+    font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.16em;
+    text-transform:uppercase; color:rgba(243,238,227,0.45);
+  }
+  .pay-row .v{ font-size:1.02rem; color:var(--bone); margin-top:.28rem; line-height:1.45; }
+  .pay-row .v.acct{
+    font-family:'IBM Plex Mono',monospace; font-size:1.16rem; letter-spacing:.06em;
+    color:var(--gold-bright);
+  }
+  .copy-acct{
+    display:inline-flex; align-items:center; gap:.5rem; margin-top:.6rem; cursor:pointer;
+    background:none; border:1px solid var(--line); color:rgba(243,238,227,0.75);
+    font-family:'IBM Plex Mono',monospace; font-size:0.6rem; letter-spacing:.14em; text-transform:uppercase;
+    padding:.5rem .8rem; min-height:34px; transition:border-color .25s, color .25s, background .25s;
+  }
+  .copy-acct:hover{ border-color:var(--gold); color:var(--gold-bright); background:rgba(201,154,62,0.08); }
+  .copy-acct svg{ width:13px; height:13px; stroke:currentColor; }
+  .pay-qr{ flex:0 0 auto; text-align:center; }
+  .pay-qr img{ width:168px; height:auto; border:1px solid var(--line); background:#fff; }
+  .pay-qr figcaption{
+    font-family:'IBM Plex Mono',monospace; font-size:0.58rem; letter-spacing:.14em;
+    text-transform:uppercase; color:rgba(243,238,227,0.45); margin-top:.6rem;
+  }
+
+  /* receipt upload */
+  .file-field{ grid-column:1 / -1; }
+  .file-drop{
+    display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+    border:1px dashed rgba(243,238,227,0.28); padding:1rem 1.1rem; margin-top:.5rem;
+    transition:border-color .25s, background .25s;
+  }
+  .file-drop:hover{ border-color:var(--gold); background:rgba(201,154,62,0.05); }
+  .file-btn{
+    display:inline-flex; align-items:center; gap:.55rem; cursor:pointer; flex:none;
+    font-family:'IBM Plex Mono',monospace; font-size:0.64rem; letter-spacing:.14em; text-transform:uppercase;
+    border:1px solid var(--gold); color:var(--gold-bright); padding:.6rem 1rem; min-height:40px;
+    transition:background .25s;
+  }
+  .file-btn:hover{ background:rgba(201,154,62,0.12); }
+  .file-btn svg{ width:14px; height:14px; stroke:currentColor; }
+  .file-field input[type="file"]{ position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; }
+  .file-field input[type="file"]:focus-visible + .file-btn{ outline:2px solid var(--gold); outline-offset:3px; }
+  .file-name{ font-size:.86rem; color:rgba(243,238,227,0.6); word-break:break-all; }
+  .file-name.set{ color:var(--gold-bright); }
   .btn-member{ background:var(--gold); color:var(--obsidian); border-color:var(--gold); }
   .btn-member:hover{ background:var(--gold-bright); border-color:var(--gold-bright); }
 
@@ -1057,6 +1113,34 @@
             <p><b>Support &amp; Guidance</b>Priority assistance with licensing, registration, and compliance through our services division.</p>
           </div>
         </div>
+
+        <div class="pay-block reveal" data-delay="1">
+          <div class="pay-title">Payment Details</div>
+          <div class="pay-inner">
+            <div class="pay-details">
+              <div class="pay-row">
+                <div class="k">Bank</div>
+                <div class="v">Maybank</div>
+              </div>
+              <div class="pay-row">
+                <div class="k">Account Name</div>
+                <div class="v">Koperasi Usahawan Bukit Bintang Berhad</div>
+              </div>
+              <div class="pay-row">
+                <div class="k">Account Number</div>
+                <div class="v acct" id="acctNumber">568603051030</div>
+                <button type="button" class="copy-acct" id="copyAcct" aria-label="Copy account number">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                  <span id="copyAcctLabel">Copy Number</span>
+                </button>
+              </div>
+            </div>
+            <figure class="pay-qr">
+              <img src="images/payment-duitnow-qr.jpg" alt="DuitNow QR code for cooperative payments" loading="lazy">
+              <figcaption>DuitNow QR</figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
 
       <div class="mem-form reveal" data-reveal="right" data-delay="1">
@@ -1160,6 +1244,19 @@
           <div class="field full">
             <label for="memNotes">Additional Notes (optional)</label>
             <textarea id="memNotes" name="memNotes"></textarea>
+          </div>
+
+          <div class="fieldset-legend">Payment Receipt</div>
+          <div class="field full file-field">
+            <label for="memReceipt">Attach Payment Receipt (optional)</label>
+            <div class="file-drop">
+              <input type="file" id="memReceipt" name="memReceipt" accept="image/*,.pdf">
+              <label class="file-btn" for="memReceipt">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+                Choose File
+              </label>
+              <span class="file-name" id="memReceiptName">JPG, PNG or PDF &middot; max 5 MB</span>
+            </div>
           </div>
 
           <div class="fieldset-legend">Declaration</div>
@@ -1606,10 +1703,15 @@
     btn.textContent = 'Sending…';
     note.textContent = '';
     try {
+      // FormData goes up as multipart (needed for the receipt); the browser
+      // sets its own Content-Type boundary, so don't override it.
+      const isMultipart = payload instanceof FormData;
       const res = await fetch(FORM_ENDPOINT, {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: isMultipart
+          ? { 'Accept': 'application/json' }
+          : { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: isMultipart ? payload : JSON.stringify(payload)
       });
       if(!res.ok) throw new Error('HTTP ' + res.status);
       note.textContent = successMsg;
@@ -1655,9 +1757,47 @@
     }, 'Thank you — your message has been sent.');
   });
 
+  /* ---------- Payment: copy account number ---------- */
+  const copyAcct = document.getElementById('copyAcct');
+  if(copyAcct && navigator.clipboard){
+    const copyLabel = document.getElementById('copyAcctLabel');
+    copyAcct.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(document.getElementById('acctNumber').textContent.trim());
+        copyLabel.textContent = 'Copied';
+        setTimeout(() => { copyLabel.textContent = 'Copy Number'; }, 2000);
+      } catch(err){ copyLabel.textContent = 'Press Ctrl+C'; }
+    });
+  } else if(copyAcct){
+    copyAcct.hidden = true;
+  }
+
   /* ---------- Membership form ---------- */
   const memForm = document.getElementById('memberForm');
   const memNote = document.getElementById('memberNote');
+  const memReceipt = document.getElementById('memReceipt');
+  const memReceiptName = document.getElementById('memReceiptName');
+  const RECEIPT_HINT = 'JPG, PNG or PDF · max 5 MB';
+  const MAX_RECEIPT = 5 * 1024 * 1024;
+
+  function resetReceipt(){
+    memReceipt.value = '';
+    memReceiptName.textContent = RECEIPT_HINT;
+    memReceiptName.classList.remove('set');
+  }
+  memReceipt.addEventListener('change', () => {
+    const f = memReceipt.files && memReceipt.files[0];
+    if(!f){ resetReceipt(); return; }
+    if(f.size > MAX_RECEIPT){
+      memNote.textContent = 'That receipt is over 5 MB. Please attach a smaller file.';
+      resetReceipt();
+      return;
+    }
+    memNote.textContent = '';
+    memReceiptName.textContent = f.name + ' (' + (f.size / 1024 / 1024).toFixed(1) + ' MB)';
+    memReceiptName.classList.add('set');
+  });
+
   const memFields = [
     ['memName','Full Name', true],
     ['memIC','IC / NRIC Number', true],
@@ -1694,18 +1834,35 @@
       document.getElementById('memDeclare').focus();
       return;
     }
-    const payload = {
-      _subject: 'Membership Application — ' + document.getElementById('memName').value.trim(),
-      email: memEmail
-    };
+    const receipt = memReceipt.files && memReceipt.files[0];
+    if(receipt && receipt.size > MAX_RECEIPT){
+      memNote.textContent = 'That receipt is over 5 MB. Please attach a smaller file.';
+      return;
+    }
+
+    const entries = [
+      ['_subject', 'Membership Application — ' + document.getElementById('memName').value.trim()],
+      ['email', memEmail]
+    ];
     memFields.forEach(f => {
       const v = document.getElementById(f[0]).value.trim();
-      if(v) payload[f[1]] = v;
+      if(v) entries.push([f[1], v]);
     });
-    payload['Declaration'] = 'Confirmed — 18 or above, information accurate';
-    payload['Data Consent'] = 'Given';
+    entries.push(['Declaration', 'Confirmed — 18 or above, information accurate']);
+    entries.push(['Data Consent', 'Given']);
+
+    let payload;
+    if(receipt){
+      payload = new FormData();
+      entries.forEach(([k, v]) => payload.append(k, v));
+      payload.append('Payment Receipt', receipt, receipt.name);
+    } else {
+      payload = Object.fromEntries(entries);
+    }
+
     sendForm(memForm, memNote, payload,
-      'Thank you — your membership application has been submitted. Our team will be in touch.');
+      'Thank you — your membership application has been submitted. Our team will be in touch.')
+      .then(ok => { if(ok) resetReceipt(); });
   });
 
   /* ---------- Footer year ---------- */
