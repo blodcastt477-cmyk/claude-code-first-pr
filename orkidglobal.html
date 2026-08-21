@@ -293,7 +293,7 @@
   .board-head h2{ font-size:clamp(2.6rem,5.4vw,4.6rem); line-height:1.03; margin-top:1.3rem; }
   .board-head h2 em{ font-style:italic; color:var(--orchid-deep); }
   .board-head p{ margin-top:1.4rem; font-size:1.08rem; line-height:1.75; color:rgba(37,18,42,.75); }
-  .board-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:1.4rem; align-items:stretch; }
+  .board-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:stretch; }
   .director{
     background:var(--blush); border:1px solid var(--line-dark); padding:2.2rem 1.8rem;
     display:flex; flex-direction:column; align-items:flex-start;
@@ -304,7 +304,7 @@
   .director:hover{ transform:translateY(-6px); box-shadow:0 18px 42px -20px rgba(37,18,42,.35); }
   .director:hover::after{ width:100%; }
   .avatar{
-    width:94px; height:94px; border-radius:50%; margin-bottom:1.5rem; overflow:hidden;
+    width:158px; height:158px; border-radius:50%; margin-bottom:1.6rem; overflow:hidden;
     display:flex; align-items:center; justify-content:center;
     background:radial-gradient(circle at 50% 34%, var(--plum-3), var(--void));
     border:1px solid var(--orchid); box-shadow:0 0 0 4px rgba(194,78,147,.10);
@@ -317,7 +317,7 @@
   .d-note{ margin-top:.85rem; font-size:.94rem; line-height:1.6; color:rgba(37,18,42,.68); }
   .director.is-chair{ border-color:var(--orchid); box-shadow:0 14px 34px -20px rgba(122,46,99,.45); }
   .director.is-chair::after{ width:100%; }
-  .director.is-chair .avatar{ width:148px; height:148px; box-shadow:0 0 0 5px rgba(194,78,147,.16); }
+  .director.is-chair .avatar{ box-shadow:0 0 0 5px rgba(194,78,147,.16); }
 
   /* ---------- MEMBERSHIP / WHY ---------- */
   .why{ background:var(--plum); color:var(--blush); position:relative; overflow:hidden; }
@@ -591,19 +591,19 @@
     </div>
     <div class="board-grid">
       <article class="director reveal is-chair">
-        <div class="avatar"><img class="photo" src="images/board/maggie-heong.jpg" alt="Maggie Heong" width="148" height="148" loading="lazy"></div>
+        <div class="avatar"><img class="photo" src="images/board/maggie-heong.jpg" alt="Maggie Heong" width="158" height="158" loading="lazy"></div>
         <div class="d-role">Chairman &middot; Pengerusi</div>
         <h3 class="d-name">Maggie Heong</h3>
         <p class="d-note">Leads the Board and sets the cooperative&rsquo;s strategic direction and vision.</p>
       </article>
       <article class="director reveal" data-delay="1">
-        <div class="avatar"><img class="photo" src="images/board/dato-sofiya.jpg" alt="Dato&rsquo; Dr. Sofiya" width="94" height="94" loading="lazy"></div>
+        <div class="avatar"><img class="photo" src="images/board/dato-sofiya.jpg" alt="Dato&rsquo; Dr. Sofiya" width="158" height="158" loading="lazy"></div>
         <div class="d-role">Board Member &middot; ALK</div>
         <h3 class="d-name">Dato&rsquo; Dr. Sofiya</h3>
         <p class="d-note">Serves on the Lembaga Koperasi, contributing to governance and representing members&rsquo; interests.</p>
       </article>
       <article class="director reveal" data-delay="2">
-        <div class="avatar"><img class="photo" src="images/board/micson-wong.jpg" alt="Micson Wong" width="94" height="94" loading="lazy"></div>
+        <div class="avatar"><img class="photo" src="images/board/micson-wong.jpg" alt="Micson Wong" width="158" height="158" loading="lazy"></div>
         <div class="d-role">Board Member &middot; ALK</div>
         <h3 class="d-name">Micson Wong</h3>
         <p class="d-note">Serves on the Lembaga Koperasi, contributing to governance and representing members&rsquo; interests.</p>
