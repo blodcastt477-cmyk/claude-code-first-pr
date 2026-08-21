@@ -287,12 +287,13 @@
   .director:hover{ transform:translateY(-6px); box-shadow:0 18px 42px -20px rgba(37,18,42,.35); }
   .director:hover::after{ width:100%; }
   .avatar{
-    width:84px; height:84px; border-radius:50%; margin-bottom:1.5rem;
+    width:94px; height:94px; border-radius:50%; margin-bottom:1.5rem; overflow:hidden;
     display:flex; align-items:center; justify-content:center;
     background:radial-gradient(circle at 50% 34%, var(--plum-3), var(--void));
     border:1px solid var(--orchid); box-shadow:0 0 0 4px rgba(194,78,147,.10);
   }
   .avatar img{ width:52px; height:auto; }
+  .avatar img.photo{ width:100%; height:100%; object-fit:cover; object-position:50% 22%; }
   .d-role{ font-family:var(--mono); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color:var(--orchid-deep); }
   .d-name{ font-size:1.5rem; margin-top:.5rem; line-height:1.12; }
   .d-name .tbc{ color:rgba(37,18,42,.4); font-style:italic; font-family:var(--display); }
@@ -557,9 +558,9 @@
 </section>
 
 <!-- ================= BOARD OF DIRECTORS ================= -->
-<!-- Directors sourced from the official site orkidglobal.com (Board Of Director
-     page). Chairman centered to mirror the source layout. Emblem avatars used
-     as placeholders for member photos. -->
+<!-- Directors and roles sourced from the official site orkidglobal.com and the
+     owner: Maggie Heong (Chairman, centered), Dato' Dr. Sofiya and Micson Wong
+     (ALK / Anggota Lembaga Koperasi). Photos from the owner's supplied files. -->
 <section class="board section-pad" id="board">
   <div class="ghost" aria-hidden="true">Lembaga</div>
   <div class="wrap">
@@ -570,19 +571,19 @@
     </div>
     <div class="board-grid">
       <article class="director reveal">
-        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="avatar"><img class="photo" src="images/board/dato-sofiya.jpg" alt="Dato&rsquo; Dr. Sofiya" width="94" height="94" loading="lazy"></div>
         <div class="d-role">Board Member &middot; ALK</div>
-        <h3 class="d-name">Maggie Heong</h3>
+        <h3 class="d-name">Dato&rsquo; Dr. Sofiya</h3>
         <p class="d-note">Serves on the Lembaga Koperasi, contributing to governance and representing members&rsquo; interests.</p>
       </article>
       <article class="director reveal is-chair" data-delay="1">
-        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="avatar"><img class="photo" src="images/board/maggie-heong.jpg" alt="Maggie Heong" width="94" height="94" loading="lazy"></div>
         <div class="d-role">Chairman &middot; Pengerusi</div>
-        <h3 class="d-name">Dato&rsquo; Dr. Sofiya</h3>
+        <h3 class="d-name">Maggie Heong</h3>
         <p class="d-note">Leads the Board and sets the cooperative&rsquo;s strategic direction and vision.</p>
       </article>
       <article class="director reveal" data-delay="2">
-        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="avatar"><img class="photo" src="images/board/micson-wong.jpg" alt="Micson Wong" width="94" height="94" loading="lazy"></div>
         <div class="d-role">Board Member &middot; ALK</div>
         <h3 class="d-name">Micson Wong</h3>
         <p class="d-note">Serves on the Lembaga Koperasi, contributing to governance and representing members&rsquo; interests.</p>
