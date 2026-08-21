@@ -264,6 +264,40 @@
   .sector h3{ font-size:1.7rem; color:var(--blush); font-family:var(--display); font-weight:500; line-height:1.1; }
   .sector p{ font-size:.92rem; line-height:1.6; color:rgba(247,239,244,.6); }
 
+  /* ---------- BOARD OF DIRECTORS ---------- */
+  .board{ background:var(--blush-2); color:var(--ink); position:relative; overflow:hidden; }
+  .board .ghost{
+    position:absolute; top:1rem; right:-1%; z-index:0; pointer-events:none; user-select:none;
+    font-family:var(--display); font-style:italic; font-size:clamp(6rem,20vw,19rem); line-height:1;
+    color:transparent; -webkit-text-stroke:1px rgba(37,18,42,.08); white-space:nowrap;
+  }
+  .board .wrap{ position:relative; z-index:1; }
+  .board-head{ max-width:66ch; margin-bottom:3.4rem; }
+  .board-head h2{ font-size:clamp(2.6rem,5.4vw,4.6rem); line-height:1.03; margin-top:1.3rem; }
+  .board-head h2 em{ font-style:italic; color:var(--orchid-deep); }
+  .board-head p{ margin-top:1.4rem; font-size:1.08rem; line-height:1.75; color:rgba(37,18,42,.75); }
+  .board-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+  .director{
+    background:var(--blush); border:1px solid var(--line-dark); padding:2.2rem 1.8rem;
+    display:flex; flex-direction:column; align-items:flex-start;
+    position:relative; overflow:hidden;
+    transition:transform .3s cubic-bezier(.22,.61,.36,1), box-shadow .3s;
+  }
+  .director::after{ content:""; position:absolute; left:0; bottom:0; height:2px; width:0; background:var(--orchid); transition:width .4s cubic-bezier(.22,.61,.36,1); }
+  .director:hover{ transform:translateY(-6px); box-shadow:0 18px 42px -20px rgba(37,18,42,.35); }
+  .director:hover::after{ width:100%; }
+  .avatar{
+    width:84px; height:84px; border-radius:50%; margin-bottom:1.5rem;
+    display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 50% 34%, var(--plum-3), var(--void));
+    border:1px solid var(--orchid); box-shadow:0 0 0 4px rgba(194,78,147,.10);
+  }
+  .avatar img{ width:52px; height:auto; }
+  .d-role{ font-family:var(--mono); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color:var(--orchid-deep); }
+  .d-name{ font-size:1.5rem; margin-top:.5rem; line-height:1.12; }
+  .d-name .tbc{ color:rgba(37,18,42,.4); font-style:italic; font-family:var(--display); }
+  .d-note{ margin-top:.85rem; font-size:.94rem; line-height:1.6; color:rgba(37,18,42,.68); }
+
   /* ---------- MEMBERSHIP / WHY ---------- */
   .why{ background:var(--plum); color:var(--blush); position:relative; overflow:hidden; }
   .why::before{ content:""; position:absolute; top:-40%; right:-12%; width:55vw; height:55vw; border-radius:50%; background:radial-gradient(circle, rgba(185,140,224,.14), transparent 65%); pointer-events:none; }
@@ -329,6 +363,7 @@
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1024px){
     .sector-grid{ grid-template-columns:repeat(2,1fr); }
+    .board-grid{ grid-template-columns:repeat(2,1fr); }
   }
   @media (max-width:860px){
     nav.topnav ul{ display:none; }
@@ -343,6 +378,7 @@
   }
   @media (max-width:560px){
     .sector-grid{ grid-template-columns:1fr; }
+    .board-grid{ grid-template-columns:1fr; }
     .stats{ grid-template-columns:1fr; }
   }
 </style>
@@ -363,6 +399,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#vision">Vision</a></li>
     <li><a href="#sectors">Sectors</a></li>
+    <li><a href="#board">Board</a></li>
     <li><a href="#membership">Membership</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -375,6 +412,7 @@
   <li><a href="#about">About</a></li>
   <li><a href="#vision">Vision</a></li>
   <li><a href="#sectors">Sectors</a></li>
+  <li><a href="#board">Board</a></li>
   <li><a href="#membership">Membership</a></li>
   <li><a href="#contact">Contact</a></li>
 </ul>
@@ -511,6 +549,58 @@
       <div class="sector reveal" data-reveal="scale" data-delay="1" style="justify-content:center; align-items:flex-start;">
         <a class="btn btn-ghost" href="#membership" style="border-color:var(--line);">Join the Cooperative &rarr;</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BOARD OF DIRECTORS ================= -->
+<!-- NOTE: Director NAMES are PLACEHOLDERS ("To be confirmed"). The reference
+     site orkidglobal.com has no board details; replace with the real people. -->
+<section class="board section-pad" id="board">
+  <div class="ghost" aria-hidden="true">Lembaga</div>
+  <div class="wrap">
+    <div class="board-head reveal">
+      <p class="eyebrow">Board of Directors</p>
+      <h2 data-split>Governance you can <em>trust.</em></h2>
+      <p>The Board of Directors &mdash; the Lembaga Koperasi &mdash; provides strategic direction, leadership and oversight for Koperasi Orkid Global Berhad, safeguarding members&rsquo; interests and upholding the highest standards of transparency and accountability.</p>
+    </div>
+    <div class="board-grid">
+      <article class="director reveal">
+        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="d-role">Chairman &middot; Pengerusi</div>
+        <h3 class="d-name"><span class="tbc">To be confirmed</span></h3>
+        <p class="d-note">Leads the Board and sets the cooperative&rsquo;s strategic direction and vision.</p>
+      </article>
+      <article class="director reveal" data-delay="1">
+        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="d-role">Deputy Chairman &middot; Timbalan Pengerusi</div>
+        <h3 class="d-name"><span class="tbc">To be confirmed</span></h3>
+        <p class="d-note">Supports the Chairman and deputises on governance and strategy matters.</p>
+      </article>
+      <article class="director reveal" data-delay="2">
+        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="d-role">Secretary &middot; Setiausaha</div>
+        <h3 class="d-name"><span class="tbc">To be confirmed</span></h3>
+        <p class="d-note">Maintains the cooperative&rsquo;s records and ensures regulatory compliance.</p>
+      </article>
+      <article class="director reveal">
+        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="d-role">Treasurer &middot; Bendahari</div>
+        <h3 class="d-name"><span class="tbc">To be confirmed</span></h3>
+        <p class="d-note">Oversees financial management, stewardship and reporting to members.</p>
+      </article>
+      <article class="director reveal" data-delay="1">
+        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="d-role">Board Member &middot; Anggota Lembaga</div>
+        <h3 class="d-name"><span class="tbc">To be confirmed</span></h3>
+        <p class="d-note">Contributes to strategy and represents the interests of members.</p>
+      </article>
+      <article class="director reveal" data-delay="2">
+        <div class="avatar"><img src="images/orkid-mark.png" alt="" width="52" loading="lazy"></div>
+        <div class="d-role">Board Member &middot; Anggota Lembaga</div>
+        <h3 class="d-name"><span class="tbc">To be confirmed</span></h3>
+        <p class="d-note">Contributes to strategy and represents the interests of members.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -728,7 +818,7 @@
   // Active nav link on scroll
   (function(){
     var links = Array.from(document.querySelectorAll('nav.topnav ul li a, .mobile-menu li a'));
-    var sections = ['home','about','vision','sectors','membership','contact']
+    var sections = ['home','about','vision','sectors','board','membership','contact']
       .map(function(id){ return document.getElementById(id); }).filter(Boolean);
     if(!('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function(entries){
